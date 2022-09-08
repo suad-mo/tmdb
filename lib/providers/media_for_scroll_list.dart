@@ -28,7 +28,7 @@ class MediaForScrollList with ChangeNotifier {
   final TypeListMedia typeListMedia;
 
   ResultMediaScrolList _resultMediaScrolList = ResultMediaScrolList(
-    typeListMedia: TypeListMedia.movieLatest,
+    typeListMedia: TypeListMedia.movieNowPlaying,
     items: [],
     currentPage: 0,
     nextPage: 1,

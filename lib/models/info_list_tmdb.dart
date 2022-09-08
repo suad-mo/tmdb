@@ -2,7 +2,7 @@ enum TypeListMedia {
   trendingMovieWeek,
   trendingMovieDay,
   movieNowPlaying,
-  movieLatest,
+  // movieLatest,
   movieUpcoming,
   moviePopular,
   movieTopRated,
@@ -34,11 +34,11 @@ class InfoListTmdb {
     String title = 'Title';
     String titleSufix = 'MOVIE';
     switch (newTypeListMedia) {
-      case TypeListMedia.trendingMovieDay:
+      case TypeListMedia.trendingMovieWeek:
         partUrl = 'trending/movie/week';
         title = 'Trending';
         break;
-      case TypeListMedia.trendingMovieWeek:
+      case TypeListMedia.trendingMovieDay:
         partUrl = 'trending/movie/day';
         title = 'Trending Day';
         break;
@@ -46,10 +46,10 @@ class InfoListTmdb {
         partUrl = 'movie/now_playing';
         title = 'Nov Playing';
         break;
-      case TypeListMedia.movieLatest:
-        partUrl = 'movie/latest';
-        title = 'Latest';
-        break;
+      // case TypeListMedia.movieLatest:
+      //   partUrl = 'movie/latest';
+      //   title = 'Latest';
+      //   break;
       case TypeListMedia.movieUpcoming:
         partUrl = 'movie/upcoming';
         title = 'Upcoming';

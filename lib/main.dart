@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmdb/providers/media_provider.dart';
 import 'package:tmdb/screens/Home/home_screen.dart';
+import 'package:tmdb/screens/Home/home_screen_a.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const HomeScreen(),
+        home: const HomeScreenA(),
         // const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );

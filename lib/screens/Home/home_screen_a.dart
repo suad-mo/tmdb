@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb/models/info_list_tmdb.dart';
 import 'package:tmdb/widgets/horizontal_scrol_a.dart';
+import 'package:tmdb/widgets/horizontal_scrol_b.dart';
 
 import '../../widgets/horizontal_scrol.dart';
 
@@ -14,10 +15,11 @@ class HomeScreenA extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            HorizontalScrolA(TypeListMedia.trendingMovieWeek),
-            HorizontalScrol(TypeListMedia.trendingMovieWeek),
-            HorizontalScrolA(TypeListMedia.moviePopular),
-            HorizontalScrol(TypeListMedia.moviePopular),
+            HorizontalScrolB(TypeListMedia.trendingMovieWeek),
+            HorizontalScrolB(TypeListMedia.movieTopRated),
+            HorizontalScrolB(TypeListMedia.movieNowPlaying),
+            HorizontalScrolB(TypeListMedia.moviePopular),
+            HorizontalScrolB(TypeListMedia.movieUpcoming),
           ],
         ),
       ),
