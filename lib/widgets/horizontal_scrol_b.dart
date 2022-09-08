@@ -1,13 +1,16 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
+import 'package:tmdb/widgets/scroll/item_horizontal_scroll.dart';
 
 import '../helpers/tmbd_res_data.dart';
 
 import '../models/item_media.dart';
-import '../providers/media_for_scroll_list.dart';
+//import '../providers/media_for_scroll_list.dart';
 import '../models/info_list_tmdb.dart';
 
 class HorizontalScrolB extends StatefulWidget {
-  HorizontalScrolB(this.typeListMedia, {Key? key}) : super(key: key);
+  const HorizontalScrolB(this.typeListMedia, {Key? key}) : super(key: key);
   final TypeListMedia typeListMedia;
 
   @override
@@ -20,7 +23,7 @@ class _HorizontalScrolBState extends State<HorizontalScrolB> {
   int _nextPage = 1;
   int _totalPage = 0;
   int _totalResults = 0;
-  List<ItemMedia> _items = [];
+  final List<ItemMedia> _items = [];
   ScrollController _controller = ScrollController();
 
   @override
@@ -53,18 +56,18 @@ class _HorizontalScrolBState extends State<HorizontalScrolB> {
         !_controller.position.outOfRange) {}
   }
 
-  Future<void> _refresh() async {
-    final data = await TmdbData.getList(widget.typeListMedia, _currentPage + 1);
-    // .then((data) {
-    setState(() {
-      _currentPage++;
-      _nextPage++;
-      _totalPage = data.totalPages;
-      _totalResults = data.totalResults;
-      _items.addAll(data.items);
-    });
-    // });
-  }
+  // Future<void> _refresh() async {
+  //   final data = await TmdbData.getList(widget.typeListMedia, _currentPage + 1);
+  //   // .then((data) {
+  //   setState(() {
+  //     _currentPage++;
+  //     _nextPage++;
+  //     _totalPage = data.totalPages;
+  //     _totalResults = data.totalResults;
+  //     _items.addAll(data.items);
+  //   });
+  //   // });
+  // }
 
   Future<void> _refreshA() {
     return TmdbData.getList(
@@ -155,16 +158,17 @@ class _HorizontalScrolBState extends State<HorizontalScrolB> {
                       shrinkWrap: true,
                       itemCount: _items.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 5, vertical: 5),
-                          width: 120,
-                          color: Colors.green,
-                          child: Image(
-                            image: NetworkImage(_items[index].posterPath),
-                            fit: BoxFit.cover,
-                          ),
-                        );
+                        return ItemHorizontalScrol(_items[index]);
+                        // Container(
+                        //   margin: const EdgeInsets.symmetric(
+                        //       horizontal: 5, vertical: 5),
+                        //   width: 120,
+                        //   color: Colors.green,
+                        //   child: Image(
+                        //     image: NetworkImage(_items[index].posterPath),
+                        //     fit: BoxFit.cover,
+                        //   ),
+                        // );
                       }),
                 ),
         ),
