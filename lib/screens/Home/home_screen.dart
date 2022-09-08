@@ -4,8 +4,8 @@ import 'package:tmdb/widgets/horizontal_scrol_a.dart';
 
 import '../../widgets/horizontal_scrol.dart';
 
-class HomeScreenA extends StatelessWidget {
-  const HomeScreenA({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

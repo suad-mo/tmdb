@@ -19,13 +19,19 @@ class HorizontalScrolA extends StatelessWidget {
           : Column(
               children: [
                 AppBar(
-                  title: Text(InfoListTmdb.setByType(typeListMedia).title),
-                  backgroundColor: Theme.of(context).primaryColor,
+                  title: Text(
+                    InfoListTmdb.setByType(typeListMedia).title,
+                    style: TextStyle(
+                      color: Theme.of(context).appBarTheme.backgroundColor,
+                    ),
+                  ),
+                  backgroundColor:
+                      Theme.of(context).appBarTheme.surfaceTintColor,
                   automaticallyImplyLeading: false,
                   actions: [
                     IconButton(
                       onPressed: (() {}),
-                      icon: const Icon(Icons.forward),
+                      icon: const Icon(Icons.arrow_forward_outlined),
                     ),
                   ],
                 ),
