@@ -55,6 +55,50 @@ class ResListTmdb {
     }
   }
 
+  Future<ResponseData> fetchDatafromTmdbYesOrNo([bool refresh = false]) async {
+    // /if (!refresh)ResponseData(page: page, items: items, totalPages: totalPages, totalResults: totalResults);
+    final partUrl = reqListTmbd.info.partUrl;
+    final page = reqListTmbd.page;
+    final url = Uri.https(
+      TMDB.apiBaseUrl3,
+      '/3/$partUrl',
+      {'page': page.toString()},
+    );
+    try {
+      return http.get(url, headers: {
+        'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
+        'Content-Type': 'application/json;charset=utf-8'
+      }).then((res) {
+        if (res.body.isEmpty) Exception('Greska...res.body.isEmpty = true');
+        final extractedData = jsonDecode(res.body);
+        return _getListfromJson(extractedData, page);
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ResponseData> fetchDatafromTmdbByPage(int page) async {
+    final partUrl = reqListTmbd.info.partUrl;
+    final url = Uri.https(
+      TMDB.apiBaseUrl3,
+      '/3/$partUrl',
+      {'page': page.toString()},
+    );
+    try {
+      return http.get(url, headers: {
+        'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
+        'Content-Type': 'application/json;charset=utf-8'
+      }).then((res) {
+        if (res.body.isEmpty) Exception('Greska...res.body.isEmpty = true');
+        final extractedData = jsonDecode(res.body);
+        return _getListfromJson(extractedData, page);
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   ResponseData _getListfromJson(Map<String, dynamic> data, int page) {
     try {
       final items = <ItemMedia>[];
