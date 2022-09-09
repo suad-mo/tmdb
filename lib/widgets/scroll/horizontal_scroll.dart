@@ -93,7 +93,7 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
               Text(
                 InfoListTmdb.setByType(widget.typeListMedia).title,
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 20,
                   color: Colors
                       .black, // Theme.of(context).appBarTheme.backgroundColor,
                 ),
@@ -102,7 +102,7 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
                 width: 10,
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 3),
+                margin: const EdgeInsets.only(bottom: 1),
                 child: Text(
                   InfoListTmdb.setByType(widget.typeListMedia).titleSufix,
                   // textAlign: TextAlign.center,
@@ -133,7 +133,12 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
           height: 180,
           margin: const EdgeInsets.symmetric(horizontal: 5),
           child: _isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.grey,
+                    color: Colors.purple,
+                  ),
+                )
               : RefreshIndicator(
                   edgeOffset: 20,
                   color: Colors.yellow,

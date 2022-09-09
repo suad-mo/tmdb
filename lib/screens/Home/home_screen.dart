@@ -15,8 +15,18 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
         actions: [
-          IconButton(onPressed: (() {}), icon: const Icon(Icons.movie_filter))
+          IconButton(
+              onPressed: (() {}),
+              icon: const Icon(
+                Icons.movie_filter,
+                color: Colors.greenAccent,
+              ))
         ],
+        elevation: 0,
+        leading: const Icon(
+          Icons.tv_sharp,
+          color: Colors.amber,
+        ),
         backgroundColor:
             Colors.white, // Theme.of(context).appBarTheme.backgroundColor,
       ),
@@ -26,9 +36,13 @@ class HomeScreen extends StatelessWidget {
             HorizontalScroll(TypeListMedia.trendingMovieWeek),
             HorizontalScroll(TypeListMedia.moviePopular),
             HorizontalScroll(TypeListMedia.movieTopRated),
+            HorizontalScroll(TypeListMedia.trendingTvWeek),
+            HorizontalScroll(TypeListMedia.tvPopular),
+            HorizontalScroll(TypeListMedia.tvTopRated),
           ],
         ),
       ),
+      // body: CustomScrollView(slivers: [SliverAppBar(expandedHeight: 300,)],),
     );
   }
 }
