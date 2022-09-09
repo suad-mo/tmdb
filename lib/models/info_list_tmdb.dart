@@ -2,7 +2,6 @@ enum TypeListMedia {
   trendingMovieWeek,
   trendingMovieDay,
   movieNowPlaying,
-  // movieLatest,
   movieUpcoming,
   moviePopular,
   movieTopRated,
@@ -46,10 +45,6 @@ class InfoListTmdb {
         partUrl = 'movie/now_playing';
         title = 'Nov Playing';
         break;
-      // case TypeListMedia.movieLatest:
-      //   partUrl = 'movie/latest';
-      //   title = 'Latest';
-      //   break;
       case TypeListMedia.movieUpcoming:
         partUrl = 'movie/upcoming';
         title = 'Upcoming';
@@ -64,12 +59,12 @@ class InfoListTmdb {
         break;
 
       case TypeListMedia.trendingTvDay:
-        partUrl = 'trending/tv/week';
+        partUrl = 'trending/tv/day';
         title = 'Trending';
         titleSufix = 'TV SHOWS';
         break;
       case TypeListMedia.trendingTvWeek:
-        partUrl = 'trending/tv/day';
+        partUrl = 'trending/tv/week';
         title = 'Trending Day';
         titleSufix = 'TV SHOWS';
         break;

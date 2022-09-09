@@ -1,27 +1,27 @@
-// ignore_for_file: unused_field
-
 import 'package:flutter/material.dart';
-import 'package:tmdb/widgets/scroll/item_horizontal_scroll.dart';
 
-import '../helpers/tmbd_res_data.dart';
+import '../../helpers/tmbd_res_data.dart';
+import 'item_horizontal_scroll.dart';
 
-import '../models/item_media.dart';
-//import '../providers/media_for_scroll_list.dart';
-import '../models/info_list_tmdb.dart';
+import '../../models/item_media.dart';
+import '../../models/info_list_tmdb.dart';
 
-class HorizontalScrolB extends StatefulWidget {
-  const HorizontalScrolB(this.typeListMedia, {Key? key}) : super(key: key);
+class HorizontalScroll extends StatefulWidget {
+  const HorizontalScroll(this.typeListMedia, {Key? key}) : super(key: key);
   final TypeListMedia typeListMedia;
 
   @override
-  State<HorizontalScrolB> createState() => _HorizontalScrolBState();
+  State<HorizontalScroll> createState() => _HorizontalScrolBState();
 }
 
-class _HorizontalScrolBState extends State<HorizontalScrolB> {
+class _HorizontalScrolBState extends State<HorizontalScroll> {
   bool _isLoading = false;
   int _currentPage = 0;
+  // ignore: unused_field
   int _nextPage = 1;
+  // ignore: unused_field
   int _totalPage = 0;
+  // ignore: unused_field
   int _totalResults = 0;
   final List<ItemMedia> _items = [];
   ScrollController _controller = ScrollController();
@@ -43,7 +43,6 @@ class _HorizontalScrolBState extends State<HorizontalScrolB> {
         _isLoading = false;
       });
     });
-
     super.initState();
   }
 
@@ -56,20 +55,7 @@ class _HorizontalScrolBState extends State<HorizontalScrolB> {
         !_controller.position.outOfRange) {}
   }
 
-  // Future<void> _refresh() async {
-  //   final data = await TmdbData.getList(widget.typeListMedia, _currentPage + 1);
-  //   // .then((data) {
-  //   setState(() {
-  //     _currentPage++;
-  //     _nextPage++;
-  //     _totalPage = data.totalPages;
-  //     _totalResults = data.totalResults;
-  //     _items.addAll(data.items);
-  //   });
-  //   // });
-  // }
-
-  Future<void> _refreshA() {
+  Future<void> _refresh() {
     return TmdbData.getList(
       widget.typeListMedia,
       _currentPage + 1,
@@ -112,11 +98,11 @@ class _HorizontalScrolBState extends State<HorizontalScrolB> {
                       .black, // Theme.of(context).appBarTheme.backgroundColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Container(
-                margin: EdgeInsets.only(bottom: 3),
+                margin: const EdgeInsets.only(bottom: 3),
                 child: Text(
                   InfoListTmdb.setByType(widget.typeListMedia).titleSufix,
                   // textAlign: TextAlign.center,
@@ -147,39 +133,22 @@ class _HorizontalScrolBState extends State<HorizontalScrolB> {
           height: 180,
           margin: const EdgeInsets.symmetric(horizontal: 5),
           child: _isLoading
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
                   edgeOffset: 20,
                   color: Colors.yellow,
-                  onRefresh: _refreshA,
+                  onRefresh: _refresh,
                   child: ListView.builder(
-                      controller: _controller,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: _items.length,
-                      itemBuilder: (context, index) {
-                        return ItemHorizontalScrol(_items[index]);
-                        // Container(
-                        //   margin: const EdgeInsets.symmetric(
-                        //       horizontal: 5, vertical: 5),
-                        //   width: 120,
-                        //   color: Colors.green,
-                        //   child: Image(
-                        //     image: NetworkImage(_items[index].posterPath),
-                        //     fit: BoxFit.cover,
-                        //   ),
-                        // );
-                      }),
+                    controller: _controller,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: _items.length,
+                    itemBuilder: (context, index) =>
+                        ItemHorizontalScrol(_items[index]),
+                  ),
                 ),
         ),
       ],
     );
-
-    // FutureBuilder<ResultMediaScrolList>(
-    //   future: mediaForScrollList.mediaScroll,
-    //   builder: (context, snapshot) => !snapshot.hasData
-    //       ? const CircularProgressIndicator()
-    //       :
-    // );
   }
 }
