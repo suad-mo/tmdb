@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tmdb/widgets/scroll/item_horizontal_scroll_a.dart';
 
 import '../../helpers/tmbd_res_data.dart';
 import 'item_horizontal_scroll.dart';
@@ -130,7 +131,7 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
         ),
         Container(
           width: double.infinity,
-          height: 180,
+          height: 240,
           margin: const EdgeInsets.symmetric(horizontal: 5),
           child: _isLoading
               ? const Center(
@@ -149,7 +150,7 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
                     shrinkWrap: true,
                     itemCount: _items.length,
                     itemBuilder: (context, index) =>
-                        ItemHorizontalScrol(_items[index]),
+                        ItemHorizontalScrollA(_items[index]),
                   ),
                 ),
         ),
