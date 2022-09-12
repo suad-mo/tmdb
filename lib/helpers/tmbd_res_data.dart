@@ -90,7 +90,10 @@ class TmdbData {
   static Future<Movie> getMovie(int id) async {
     final url = Uri.https(
       TMDB.apiBaseUrl3,
-      '/3/movie/${id.toString()}?append_to_response=videos,images',
+      '/3/movie/${id.toString()}',
+      {
+        'append_to_response': 'images,videos'
+      }, //?append_to_response=videos,images',
     );
     try {
       return http.get(url, headers: {
@@ -101,6 +104,25 @@ class TmdbData {
         final extractedData = jsonDecode(res.body);
         return Movie.fromJson(extractedData);
       });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<Movie> getMovieA(int id) async {
+    final url = Uri.https(
+      TMDB.apiBaseUrl3,
+      '/3/movie/${id.toString()}?append_to_response=videos,images',
+    );
+    try {
+      final res = await http.get(url, headers: {
+        'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
+        'Content-Type': 'application/json;charset=utf-8'
+      });
+
+      if (res.body.isEmpty) Exception('Greska...res.body.isEmpty = true');
+      final extractedData = jsonDecode(res.body);
+      return Movie.fromJson(extractedData);
     } catch (e) {
       rethrow;
     }

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tmdb/models/movie.dart';
+import 'package:tmdb/providers/movie_provider.dart';
+import 'package:tmdb/screens/movie/movie_screen.dart';
 
 import '../../models/item_media.dart';
 
@@ -19,16 +23,23 @@ class ItemHorizontalScrollA extends StatelessWidget {
             child: Stack(
               children: [
                 // FadeInImage.memoryNetwork(placeholder: kTransparentImage, image: Image.network((src)))
-                Image(
-                  image: NetworkImage(item.posterPath),
-                  fit: BoxFit.cover,
-                  // color: Colors.red,
-                  // colorBlendMode: BlendMode.darken,
-                  //frameBuilder: ((context, child, frame, wasSynchronouslyLoaded) => wasSynchronouslyLoaded),
-                  loadingBuilder: (context, child, loadingProgress) =>
-                      loadingProgress == null
-                          ? child
-                          : const Center(child: CircularProgressIndicator()),
+                InkWell(
+                  onTap: () {
+                    // print(movie.movie?.title);
+                    Navigator.of(context)
+                        .pushNamed(MovieScreen.routeName, arguments: item.id);
+                  },
+                  child: Image(
+                    image: NetworkImage(item.posterPath),
+                    fit: BoxFit.cover,
+                    // color: Colors.red,
+                    // colorBlendMode: BlendMode.darken,
+                    //frameBuilder: ((context, child, frame, wasSynchronouslyLoaded) => wasSynchronouslyLoaded),
+                    loadingBuilder: (context, child, loadingProgress) =>
+                        loadingProgress == null
+                            ? child
+                            : const Center(child: CircularProgressIndicator()),
+                  ),
                 ),
                 Positioned(
                   left: 90,
