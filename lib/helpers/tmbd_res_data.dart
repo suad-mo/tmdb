@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import '../configuration.dart';
 import '../models/info_list_tmdb.dart';
 import '../models/item_media.dart';
+import '../models/movie.dart' as movie;
 
 class RequestForTmbdList {
   RequestForTmbdList({
@@ -81,6 +82,25 @@ class TmdbData {
         print('Class ListMedia.fromJson...');
         print(e.toString());
       }
+      rethrow;
+    }
+  }
+
+  static Future<movie.Movie> getMovie(int idMovie) async {
+    final url = Uri.https(
+      TMDB.apiBaseUrl3,
+      '/3/movie/${idMovie.toString()}',
+    );
+    try {
+      return http.get(url, headers: {
+        'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
+        'Content-Type': 'application/json;charset=utf-8'
+      }).then((res) {
+        if (res.body.isEmpty) Exception('Greska...res.body.isEmpty = true');
+        final extractedData = jsonDecode(res.body);
+        return movie.Movie.fromJson(extractedData);
+      });
+    } catch (e) {
       rethrow;
     }
   }
