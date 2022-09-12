@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import '../configuration.dart';
 import '../models/info_list_tmdb.dart';
 import '../models/item_media.dart';
-import '../models/movie.dart' as movie;
+import '../models/tv.dart';
+import '../models/movie.dart';
 
 class RequestForTmbdList {
   RequestForTmbdList({
@@ -86,10 +87,10 @@ class TmdbData {
     }
   }
 
-  static Future<movie.Movie> getMovie(int idMovie) async {
+  static Future<Movie> getMovie(int id) async {
     final url = Uri.https(
       TMDB.apiBaseUrl3,
-      '/3/movie/${idMovie.toString()}',
+      '/3/movie/${id.toString()}?append_to_response=videos,images',
     );
     try {
       return http.get(url, headers: {
@@ -98,7 +99,26 @@ class TmdbData {
       }).then((res) {
         if (res.body.isEmpty) Exception('Greska...res.body.isEmpty = true');
         final extractedData = jsonDecode(res.body);
-        return movie.Movie.fromJson(extractedData);
+        return Movie.fromJson(extractedData);
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<Tv> getTv(int id) async {
+    final url = Uri.https(
+      TMDB.apiBaseUrl3,
+      '/3/tv/${id.toString()}?append_to_response=videos,images',
+    );
+    try {
+      return http.get(url, headers: {
+        'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
+        'Content-Type': 'application/json;charset=utf-8'
+      }).then((res) {
+        if (res.body.isEmpty) Exception('Greska...res.body.isEmpty = true');
+        final extractedData = jsonDecode(res.body);
+        return Tv.fromJson(extractedData);
       });
     } catch (e) {
       rethrow;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tmdb/widgets/scroll/item_horizontal_scroll_a.dart';
 
 import '../../helpers/tmbd_res_data.dart';
-import 'item_horizontal_scroll.dart';
+// import 'item_horizontal_scroll.dart';
 
 import '../../models/item_media.dart';
 import '../../models/info_list_tmdb.dart';
