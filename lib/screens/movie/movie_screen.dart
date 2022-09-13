@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb/configuration.dart';
 
@@ -19,6 +20,21 @@ class _MovieScreenState extends State<MovieScreen> {
   //Može i bez ove provjere jer koristi -lete- ključnu riječ ispred promjenjivih
   // ignore: prefer_final_fields
   var _loadedInitData = false;
+  // var _backdrops = <String>[];
+
+  List<String> get _backdrops {
+    List<String> backdropsList = <String>[];
+    final backdrops = _movie!.images!.backdrops;
+    if (backdrops != null) {
+      for (var img in backdrops) {
+        final path = img.filePath;
+        if (path != null) {
+          backdropsList.add(path);
+        }
+      }
+    }
+    return backdropsList;
+  }
 
   @override
   void didChangeDependencies() {
@@ -30,6 +46,7 @@ class _MovieScreenState extends State<MovieScreen> {
         setState(() {
           _movie = movie;
           _loadedInitData = true;
+          // _backdrops = movie!.images!.backdrops.forEach((element) { }) ?? [];
         });
       });
     }
@@ -39,11 +56,12 @@ class _MovieScreenState extends State<MovieScreen> {
   @override
   Widget build(BuildContext context) {
     return _movie == null
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(),
           )
         : Scaffold(
             appBar: AppBar(title: Text(_movie!.title!)),
+            // ignore: sized_box_for_whitespace
             body: Container(
               width: double.infinity,
               height: 250,
@@ -52,19 +70,25 @@ class _MovieScreenState extends State<MovieScreen> {
                 scrollDirection: Axis.horizontal,
                 addAutomaticKeepAlives: true,
                 shrinkWrap: true,
-                itemCount: _movie?.images?.backdrops?.length,
-                itemBuilder: (context, index) => Image(
-                  image: NetworkImage(TMDB.urlBack +
-                      _movie!.images!.backdrops![index].filePath!),
+                itemCount: _backdrops.length > 10 ? 10 : _backdrops.length,
+                itemBuilder: (context, index) => CachedNetworkImage(
+                  imageUrl: TMDB.urlBack + _backdrops[index],
+                  // progressIndicatorBuilder: (context, url, progress) =>
+                  //     CircularProgressIndicator(
+                  //   value: progress.progress,
+                  // ),
+                  placeholder: (context, url) => const SizedBox(
+                    height: 250,
+
+                    // width: double.infinity,
+                    child: Image(
+                        image: AssetImage('assets/images/placeholder.png')),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  // image: NetworkImage(TMDB.urlBack +
+                  //     _movie!.images!.backdrops![index].filePath!),
                   fit: BoxFit.cover,
                 ),
-
-                // child: PageView.builder( itemCount: _movie!.images!.backdrops!.length ,itemBuilder: ((context, index) => Image(
-                //       image: NetworkImage(TMDB.urlBack + _movie!.images!.backdrops![index].filePath!),
-                //       fit: BoxFit.cover,)),
-                // child: Column(children: <Widget>[
-
-                // ]),
               ),
             ));
   }

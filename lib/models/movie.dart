@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/rendering.dart';
+
 import './genres.dart';
 import './production_companies.dart';
 import './images.dart';
@@ -67,9 +69,10 @@ class Movie {
   });
 
   Movie.fromJson(Map<String, dynamic> json) {
-    print(jsonEncode(json).toString());
+    // print(jsonEncode(json).toString());
+
     adult = json['adult'];
-    print('aldut: $adult');
+    // print('aldut: $adult');
     backdropPath = json['backdrop_path'];
     belongsToCollection = json['belongs_to_collection'];
     budget = json['budget'];
