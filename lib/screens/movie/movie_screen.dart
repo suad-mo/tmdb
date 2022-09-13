@@ -90,6 +90,7 @@ class _MovieScreenState extends State<MovieScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
-            ));
+            ),
+          );
   }
 }
