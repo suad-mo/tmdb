@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:tmdb/helpers/tmbd_res_data.dart';
 import 'package:tmdb/models/movie.dart';
 
-import '../models/info_list_tmdb.dart';
-import '../providers/media_for_scroll_list.dart';
+// import '../models/info_list_tmdb.dart';
+// import '../providers/media_for_scroll_list.dart';
 
 class MovieProvider with ChangeNotifier {
   MovieProvider();

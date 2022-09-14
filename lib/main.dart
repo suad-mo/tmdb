@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const HomeScreen(),
         routes: {
-          MovieScreen.routeName: (ctx) => MovieScreen(),
+          MovieScreen.routeName: (ctx) => const MovieScreen(),
         },
       ),
     );
