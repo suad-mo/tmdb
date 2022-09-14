@@ -1,6 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:tmdb/configuration.dart';
+// import 'package:tmdb/configuration.dart';
+import 'package:tmdb/widgets/Swiper/swiper_header.dart';
 
 import '../../helpers/tmbd_res_data.dart';
 import '../../models/movie.dart';
@@ -62,35 +63,44 @@ class _MovieScreenState extends State<MovieScreen> {
         : Scaffold(
             appBar: AppBar(title: Text(_movie!.title!)),
             // ignore: sized_box_for_whitespace
-            body: Container(
-              width: double.infinity,
-              height: 250,
-              child: ListView.builder(
-                // controller: _controller,
-                scrollDirection: Axis.horizontal,
-                addAutomaticKeepAlives: true,
-                shrinkWrap: true,
-                itemCount: _backdrops.length > 10 ? 10 : _backdrops.length,
-                itemBuilder: (context, index) => CachedNetworkImage(
-                  imageUrl: TMDB.urlBack + _backdrops[index],
-                  // progressIndicatorBuilder: (context, url, progress) =>
-                  //     CircularProgressIndicator(
-                  //   value: progress.progress,
-                  // ),
-                  placeholder: (context, url) => const SizedBox(
-                    height: 250,
+// <<<<<<< HEAD
+//             body: Container(
+//               width: double.infinity,
+//               height: 250,
+//               child: ListView.builder(
+//                 // controller: _controller,
+//                 scrollDirection: Axis.horizontal,
+//                 addAutomaticKeepAlives: true,
+//                 shrinkWrap: true,
+//                 itemCount: _backdrops.length > 10 ? 10 : _backdrops.length,
+//                 itemBuilder: (context, index) => CachedNetworkImage(
+//                   imageUrl: TMDB.urlBack + _backdrops[index],
+//                   // progressIndicatorBuilder: (context, url, progress) =>
+//                   //     CircularProgressIndicator(
+//                   //   value: progress.progress,
+//                   // ),
+//                   placeholder: (context, url) => const SizedBox(
+//                     height: 250,
 
-                    // width: double.infinity,
-                    child: Image(
-                        image: AssetImage('assets/images/placeholder.png')),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                  // image: NetworkImage(TMDB.urlBack +
-                  //     _movie!.images!.backdrops![index].filePath!),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+//                     // width: double.infinity,
+//                     child: Image(
+//                         image: AssetImage('assets/images/placeholder.png')),
+//                   ),
+//                   errorWidget: (context, url, error) => const Icon(Icons.error),
+//                   // image: NetworkImage(TMDB.urlBack +
+//                   //     _movie!.images!.backdrops![index].filePath!),
+//                   fit: BoxFit.cover,
+//                 ),
+//               ),
+//             ),
+// =======
+            body: SwiperHeader(_backdrops),
+            // Container(
+            //   width: double.infinity,
+            //   height: 250,
+            //   child: SwiperHeader(_backdrops),
+            // ),
+// >>>>>>> d944f1a8d5d3588ca545addf764204dbd46209cc
           );
   }
 }

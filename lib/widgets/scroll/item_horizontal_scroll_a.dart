@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tmdb/models/movie.dart';
-import 'package:tmdb/providers/movie_provider.dart';
+// import 'package:provider/provider.dart';
+// import 'package:tmdb/models/movie.dart';
+// import 'package:tmdb/providers/movie_provider.dart';
 import 'package:tmdb/screens/movie/movie_screen.dart';
 
 import '../../models/item_media.dart';

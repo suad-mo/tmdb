@@ -37,6 +37,7 @@ dependencies:
   provider: ^6.0.3
   http: ^0.13.5
   cached_network_image: ^3.2.1
+  card_swiper: ^2.0.4
 
 dev_dependencies:
   flutter_test:
