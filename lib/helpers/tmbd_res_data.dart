@@ -43,6 +43,8 @@ class TmdbData {
       '/3/$partUrl',
       {'page': page.toString()},
     );
+    print(url.toString());
+    print(TMDB.apiReadAccessToken);
     try {
       return http.get(url, headers: {
         'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
