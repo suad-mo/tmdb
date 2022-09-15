@@ -1,16 +1,12 @@
-// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-// import 'package:tmdb/configuration.dart';
-import 'package:tmdb/widgets/swiper/swiper_header.dart';
-import 'package:tmdb/widgets/swiper/swiper_header_a.dart';
 
+import '../../widgets/swiper/swiper_header.dart';
 import '../../helpers/tmbd_res_data.dart';
 import '../../models/movie.dart';
 
 class MovieScreen extends StatefulWidget {
   const MovieScreen({Key? key}) : super(key: key);
   static const routeName = '/movie';
-  // final int id;
 
   @override
   State<MovieScreen> createState() => _MovieScreenState();
@@ -58,7 +54,7 @@ class _MovieScreenState extends State<MovieScreen> {
           )
         : Scaffold(
             appBar: AppBar(title: Text(_movie!.title!)),
-            body: SwiperHeaderA(_backdrops),
+            body: SwiperHeader(_backdrops),
           );
   }
 }
