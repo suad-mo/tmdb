@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tmdb/widgets/scroll/item_horizontal_scroll_a.dart';
 
 import '../../helpers/tmbd_res_data.dart';
-// import 'item_horizontal_scroll.dart';
-
 import '../../models/item_media.dart';
 import '../../models/info_list_tmdb.dart';
+import '../../widgets/scroll/item_horizontal_scroll.dart';
 
 class HorizontalScroll extends StatefulWidget {
   const HorizontalScroll(this.typeListMedia, {Key? key}) : super(key: key);
@@ -150,7 +148,7 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
                     shrinkWrap: true,
                     itemCount: _items.length,
                     itemBuilder: (context, index) =>
-                        ItemHorizontalScrollA(_items[index]),
+                        ItemHorizontalScroll(_items[index]),
                   ),
                 ),
         ),
