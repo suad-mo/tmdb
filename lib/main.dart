@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tmdb/screens/movie/movie_screen.dart';
 
 import '../providers/media_provider.dart';
-import '../screens/Home/home_screen.dart';
+import '../screens/home/home_screen.dart';
 import 'providers/movie_provider.dart';
 
 void main() {

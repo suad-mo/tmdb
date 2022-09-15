@@ -43,7 +43,7 @@ class ItemHorizontalScrollA extends StatelessWidget {
                 ),
                 Positioned(
                   left: 90,
-                  top: 5,
+                  top: 8,
                   child: Text(
                     item.voteAverage.toStringAsFixed(1),
                     style: const TextStyle(
@@ -77,7 +77,9 @@ class ItemHorizontalScrollA extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: (() {}),
+                onTap: (() {
+                  //print('aaaa');
+                }),
                 child: const Icon(
                   Icons.more_vert,
                   size: 24,
