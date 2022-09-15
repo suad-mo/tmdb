@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import '../configuration.dart';
 import '../models/info_list_tmdb.dart';
 import '../models/item_media.dart';
+import '../models/tv.dart';
+import '../models/movie.dart';
 
 class RequestForTmbdList {
   RequestForTmbdList({
@@ -81,6 +83,66 @@ class TmdbData {
         print('Class ListMedia.fromJson...');
         print(e.toString());
       }
+      rethrow;
+    }
+  }
+
+  static Future<Movie> getMovie(int id) async {
+    final url = Uri.https(
+      TMDB.apiBaseUrl3,
+      '/3/movie/${id.toString()}',
+      {
+        'append_to_response': 'images,videos'
+      }, //?append_to_response=videos,images',
+    );
+    try {
+      return http.get(url, headers: {
+        'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
+        'Content-Type': 'application/json;charset=utf-8'
+      }).then((res) {
+        if (res.body.isEmpty) Exception('Greska...res.body.isEmpty = true');
+        final extractedData = jsonDecode(res.body);
+        return Movie.fromJson(extractedData);
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<Movie> getMovieA(int id) async {
+    final url = Uri.https(
+      TMDB.apiBaseUrl3,
+      '/3/movie/${id.toString()}?append_to_response=videos,images',
+    );
+    try {
+      final res = await http.get(url, headers: {
+        'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
+        'Content-Type': 'application/json;charset=utf-8'
+      });
+
+      if (res.body.isEmpty) Exception('Greska...res.body.isEmpty = true');
+      final extractedData = jsonDecode(res.body);
+      return Movie.fromJson(extractedData);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<Tv> getTv(int id) async {
+    final url = Uri.https(
+      TMDB.apiBaseUrl3,
+      '/3/tv/${id.toString()}?append_to_response=videos,images',
+    );
+    try {
+      return http.get(url, headers: {
+        'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
+        'Content-Type': 'application/json;charset=utf-8'
+      }).then((res) {
+        if (res.body.isEmpty) Exception('Greska...res.body.isEmpty = true');
+        final extractedData = jsonDecode(res.body);
+        return Tv.fromJson(extractedData);
+      });
+    } catch (e) {
       rethrow;
     }
   }

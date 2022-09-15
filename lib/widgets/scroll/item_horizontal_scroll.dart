@@ -11,7 +11,6 @@ class ItemHorizontalScrol extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         width: 120,
-        //color: Colors.green,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tmdb/widgets/scroll/item_horizontal_scroll_a.dart';
 
 import '../../helpers/tmbd_res_data.dart';
-import 'item_horizontal_scroll.dart';
+// import 'item_horizontal_scroll.dart';
 
 import '../../models/item_media.dart';
 import '../../models/info_list_tmdb.dart';
@@ -93,7 +94,7 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
               Text(
                 InfoListTmdb.setByType(widget.typeListMedia).title,
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 20,
                   color: Colors
                       .black, // Theme.of(context).appBarTheme.backgroundColor,
                 ),
@@ -102,7 +103,7 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
                 width: 10,
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 3),
+                margin: const EdgeInsets.only(bottom: 1),
                 child: Text(
                   InfoListTmdb.setByType(widget.typeListMedia).titleSufix,
                   // textAlign: TextAlign.center,
@@ -130,10 +131,15 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
         ),
         Container(
           width: double.infinity,
-          height: 180,
+          height: 240,
           margin: const EdgeInsets.symmetric(horizontal: 5),
           child: _isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.grey,
+                    color: Colors.purple,
+                  ),
+                )
               : RefreshIndicator(
                   edgeOffset: 20,
                   color: Colors.yellow,
@@ -144,7 +150,7 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
                     shrinkWrap: true,
                     itemCount: _items.length,
                     itemBuilder: (context, index) =>
-                        ItemHorizontalScrol(_items[index]),
+                        ItemHorizontalScrollA(_items[index]),
                   ),
                 ),
         ),
