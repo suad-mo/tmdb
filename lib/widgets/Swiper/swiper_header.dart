@@ -8,9 +8,9 @@ class SwiperHeader extends StatefulWidget {
   const SwiperHeader(
     this.urlImgs, {
     super.key,
-    this.activeColor = Colors.white,
-    this.color = Colors.white38,
-    this.size = 12,
+    this.activeColor = Colors.white70,
+    this.color = Colors.white24,
+    this.size = 10,
     this.activeIndex = 0,
   });
   final List<String> urlImgs;
@@ -39,27 +39,27 @@ class _SwiperHeaderState extends State<SwiperHeader> {
 
   SwiperPlugin _pagination() {
     return SwiperPagination(
-      alignment: Alignment.bottomRight,
-      // margin: EdgeInsets.only(right: 10),
+      alignment: Alignment.bottomLeft,
+      margin: EdgeInsets.only(right: 10, left: 160, bottom: 10),
       builder: SwiperCustomPagination(
         builder: ((context, config) {
           final list = <Widget>[];
           final itemCount = config.itemCount;
           for (var i = 0; i < itemCount; i++) {
-            //final active = i == _activeIndex;
+            final active = i == _activeIndex;
             list.add(GestureDetector(
               onTap: () {
                 _controler.move(i, animation: true);
               },
               child: Container(
                 key: Key('pagination_$i'),
-                margin: const EdgeInsets.all(2),
+                margin: const EdgeInsets.all(3),
                 child: ClipOval(
                   child: Container(
                     color:
                         i == _activeIndex ? widget.activeColor : widget.color,
-                    width: widget.size,
-                    height: widget.size,
+                    width: active ? widget.size + 2 : widget.size,
+                    height: active ? widget.size + 2 : widget.size,
                   ),
                 ),
               ),
@@ -78,7 +78,7 @@ class _SwiperHeaderState extends State<SwiperHeader> {
   Widget build(BuildContext context) {
     // ignore: sized_box_for_whitespace
     return Container(
-      height: 230,
+      height: 220,
       width: double.infinity,
       child: Swiper(
         itemCount: widget.urlImgs.length,
@@ -86,7 +86,7 @@ class _SwiperHeaderState extends State<SwiperHeader> {
           return CachedNetworkImage(
             imageUrl: TMDB.urlBack + widget.urlImgs[index],
             placeholder: (context, url) => const SizedBox(
-              height: 250,
+              height: 220,
               child: Image(image: AssetImage('assets/images/placeholder.png')),
             ),
             fit: BoxFit.cover,

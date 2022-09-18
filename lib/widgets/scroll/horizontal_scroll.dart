@@ -8,6 +8,9 @@ import '../../widgets/scroll/item_horizontal_scroll.dart';
 class HorizontalScroll extends StatefulWidget {
   const HorizontalScroll(this.typeListMedia, {Key? key}) : super(key: key);
   final TypeListMedia typeListMedia;
+  String get typeMedia {
+    return InfoListTmdb.setByType(typeListMedia).titleSufix;
+  }
 
   @override
   State<HorizontalScroll> createState() => _HorizontalScrolBState();
@@ -147,8 +150,10 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemCount: _items.length,
-                    itemBuilder: (context, index) =>
-                        ItemHorizontalScroll(_items[index]),
+                    itemBuilder: (context, index) => ItemHorizontalScroll(
+                      _items[index],
+                      typeMedia: widget.typeMedia,
+                    ),
                   ),
                 ),
         ),

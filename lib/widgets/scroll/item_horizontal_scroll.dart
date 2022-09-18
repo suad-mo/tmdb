@@ -3,12 +3,19 @@ import 'package:flutter/material.dart';
 // import 'package:tmdb/models/movie.dart';
 // import 'package:tmdb/providers/movie_provider.dart';
 import 'package:tmdb/screens/movie/movie_screen.dart';
+import 'package:tmdb/screens/movie/movie_scren_a.dart';
+import 'package:tmdb/screens/movie/movie_scren_b.dart';
 
 import '../../models/item_media.dart';
 
 class ItemHorizontalScroll extends StatelessWidget {
-  const ItemHorizontalScroll(this.item, {Key? key}) : super(key: key);
+  const ItemHorizontalScroll(
+    this.item, {
+    Key? key,
+    this.typeMedia = "MOVIE",
+  }) : super(key: key);
   final ItemMedia item;
+  final String typeMedia;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +32,19 @@ class ItemHorizontalScroll extends StatelessWidget {
                 // FadeInImage.memoryNetwork(placeholder: kTransparentImage, image: Image.network((src)))
                 InkWell(
                   onTap: () {
-                    // print(movie.movie?.title);
-                    Navigator.of(context)
-                        .pushNamed(MovieScreen.routeName, arguments: item.id);
+                    // if (typeMedia == 'MOVIE') {
+                    //   Navigator.of(context)
+                    //       .pushNamed(MovieScreen.routeName, arguments: item.id);
+                    // }
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          // fullscreenDialog: true,
+                          maintainState: false,
+                          builder: (context) {
+                            return MovieScreenB(item.id.toInt());
+                          },
+                        ));
                   },
                   child: Image(
                     image: NetworkImage(item.posterPath),
