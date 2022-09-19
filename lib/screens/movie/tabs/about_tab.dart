@@ -15,21 +15,21 @@ class AboutTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Overview:',
-            textAlign: TextAlign.start,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            movie.overview ?? '',
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontSize: 16,
-            ),
-          ),
+          // const Text(
+          //   'Overview:',
+          //   textAlign: TextAlign.start,
+          //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          // ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // Text(
+          //   movie.overview ?? '',
+          //   textAlign: TextAlign.justify,
+          //   style: TextStyle(
+          //     fontSize: 16,
+          //   ),
+          // ),
           const SizedBox(
             height: 10,
           ),
@@ -38,38 +38,186 @@ class AboutTab extends StatelessWidget {
             textAlign: TextAlign.start,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          Row(
-            children: _list(),
+          // Row(
+          //   children: _list(),
+          // ),
+          Container(
+            width: double.infinity,
+            height: 40,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: movie.genres?.length ?? 0,
+              itemBuilder: ((context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Colors.black12,
+                    ),
+                    onPressed: (() {
+                      print(movie.genres?[index].id.toString());
+                    }),
+
+                    // style: OutlinedButtonTheme.of(context).style.backgroundColor:,
+                    child: Text(
+                      movie.genres?[index].name ?? '',
+                      style: const TextStyle(
+                        // background: Paint()..color,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Original Title'),
-              const SizedBox(width: 5),
-              Text(movie.originalTitle ?? 'Original Title')
-            ],
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: const Text('Original Title')),
+                Expanded(child: Text(movie.originalTitle ?? 'Original Title'))
+              ],
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Status'),
-              const SizedBox(width: 5),
-              Text(movie.status ?? 'Status')
-            ],
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: const Text('Status')),
+                Expanded(child: Text(movie.status ?? 'Status'))
+              ],
+            ),
           ),
-          Row(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(width: 150, child: Text('Rantime')),
-              const SizedBox(width: 10),
-              Text(
-                '${movie.runtime! ~/ 60}hr and ${movie.runtime! - (movie.runtime! ~/ 60) * 60} min',
-                softWrap: true,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                // textAlign: TextAlign.start,
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: Text('Rantime')),
+                Expanded(
+                    child: Text(
+                  '${movie.runtime! ~/ 60}hr and ${movie.runtime! - (movie.runtime! ~/ 60) * 60} min',
+                ))
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: const Text('Original Language')),
+                Expanded(
+                    child: Text(movie.originalLanguage ?? 'Original Language'))
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Align(
+                    heightFactor:
+                        (movie.productionCountries?.length ?? 1).toDouble(),
+                    // height: (movie.productionCountries?.length ?? 1) * 20,
+                    // height: double.maxFinite,
+                    // constraints: BoxConstraints.),
+                    alignment: Alignment.topLeft,
+                    // color: Colors.amberAccent,
+                    child: Text(
+                      'Production Countries',
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: movie.productionCountries!
+                        .map(
+                          (e) => Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                e.name ?? 'Original Language',
+                                textAlign: TextAlign.start,
+                              ),
+                              Icon(IconData(10, matchTextDirection: true)),
+                            ],
+                          ),
+                        )
+                        .toList(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    'Companies',
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: movie.productionCompanies!
+                        .map(
+                          (e) => Text(
+                            e.name ?? 'Original Language',
+                            textAlign: TextAlign.start,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: const Text('Budget')),
+                Expanded(child: Text(movie.budget?.toString() ?? 'Budget'))
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: const Text('Revenue')),
+                Expanded(child: Text(movie.revenue?.toString() ?? 'Budget'))
+              ],
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 50,
+            color: Colors.red,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: movie.productionCountries?.length ?? 0,
+                itemBuilder: ((context, index) => Container(
+                      padding: EdgeInsets.all(5),
+                      color: Colors.blue,
+                      child: Text(movie.productionCountries![index].iso31661 ??
+                          'iso31661'),
+                    ))),
           ),
         ],
       ),
