@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tmdb/configuration.dart';
 import 'package:tmdb/helpers/tmbd_res_data.dart';
 import 'package:tmdb/models/movie.dart';
+import 'package:tmdb/screens/poster_screen.dart';
 import 'package:tmdb/widgets/Swiper/swiper_header.dart';
 import 'package:tmdb/widgets/cast/cast_list.dart';
 
@@ -152,20 +153,36 @@ class MovieHeader extends StatelessWidget {
               Positioned(
                 top: 120,
                 left: 12,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image(
-                    width: 124,
-                    height: 180,
-                    image: NetworkImage(posterPath),
-                    fit: BoxFit.cover,
-                    // color: Colors.red,
-                    // colorBlendMode: BlendMode.darken,
-                    //frameBuilder: ((context, child, frame, wasSynchronouslyLoaded) => wasSynchronouslyLoaded),
-                    loadingBuilder: (context, child, loadingProgress) =>
-                        loadingProgress == null
-                            ? child
-                            : const Center(child: CircularProgressIndicator()),
+                child: InkWell(
+                  onTap: () {
+                    print(movie.images?.posters?.first.filePath.toString());
+                    final data = movie.images?.posters;
+                    if (data != null || data!.isEmpty) {
+                      final enPosters =
+                          data.where((e) => e.iso6391 == 'en').toList();
+                      final arg = enPosters.map((image) {
+                        return image.filePath!;
+                      }).toList();
+                      Navigator.of(context)
+                          .pushNamed(PosterScreen.routeName, arguments: arg);
+                    }
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image(
+                      width: 124,
+                      height: 180,
+                      image: NetworkImage(posterPath),
+                      fit: BoxFit.cover,
+                      // color: Colors.red,
+                      // colorBlendMode: BlendMode.darken,
+                      //frameBuilder: ((context, child, frame, wasSynchronouslyLoaded) => wasSynchronouslyLoaded),
+                      loadingBuilder: (context, child, loadingProgress) =>
+                          loadingProgress == null
+                              ? child
+                              : const Center(
+                                  child: CircularProgressIndicator()),
+                    ),
                   ),
                 ),
               ),

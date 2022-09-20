@@ -43,6 +43,7 @@ class MovieScreenB extends StatelessWidget {
           child: Scaffold(
             body: CustomScrollView(
               controller: _controller,
+              // shrinkWrap: true,
               slivers: <Widget>[
                 SliverAppBar(
                   title: _controller.initialScrollOffset > 500
@@ -86,6 +87,7 @@ class MovieScreenB extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   // actionsIconTheme: IconThemeData(color: Colors.red),
                   foregroundColor: Colors.black54,
                   expandedHeight: 400,
