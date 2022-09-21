@@ -37,7 +37,7 @@ class CastList extends StatelessWidget {
           // ],
 
         }
-        return CircleAvatar();
+        return const Center(child: CircleAvatar());
       }),
     );
   }

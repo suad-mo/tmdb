@@ -40,7 +40,7 @@ class _SwiperHeaderState extends State<SwiperHeader> {
   SwiperPlugin _pagination() {
     return SwiperPagination(
       alignment: Alignment.bottomLeft,
-      margin: EdgeInsets.only(right: 10, left: 160, bottom: 10),
+      margin: const EdgeInsets.only(right: 10, left: 160, bottom: 10),
       builder: SwiperCustomPagination(
         builder: ((context, config) {
           final list = <Widget>[];

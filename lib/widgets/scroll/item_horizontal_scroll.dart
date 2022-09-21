@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:tmdb/models/movie.dart';
-// import 'package:tmdb/providers/movie_provider.dart';
-import 'package:tmdb/screens/movie/movie_screen.dart';
-import 'package:tmdb/screens/movie/movie_scren_a.dart';
-import 'package:tmdb/screens/movie/movie_scren_b.dart';
 
+import '../../screens/movie/movie_screen.dart';
 import '../../models/item_media.dart';
 
 class ItemHorizontalScroll extends StatelessWidget {
@@ -29,29 +24,20 @@ class ItemHorizontalScroll extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             child: Stack(
               children: [
-                // FadeInImage.memoryNetwork(placeholder: kTransparentImage, image: Image.network((src)))
                 InkWell(
                   onTap: () {
-                    // if (typeMedia == 'MOVIE') {
-                    //   Navigator.of(context)
-                    //       .pushNamed(MovieScreen.routeName, arguments: item.id);
-                    // }
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          // fullscreenDialog: true,
                           maintainState: false,
                           builder: (context) {
-                            return MovieScreenB(item.id.toInt());
+                            return MovieScreen(item.id.toInt());
                           },
                         ));
                   },
                   child: Image(
                     image: NetworkImage(item.posterPath),
                     fit: BoxFit.cover,
-                    // color: Colors.red,
-                    // colorBlendMode: BlendMode.darken,
-                    //frameBuilder: ((context, child, frame, wasSynchronouslyLoaded) => wasSynchronouslyLoaded),
                     loadingBuilder: (context, child, loadingProgress) =>
                         loadingProgress == null
                             ? child
@@ -84,7 +70,6 @@ class ItemHorizontalScroll extends StatelessWidget {
                     color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    // overflow: TextOverflow.fade,
                   ),
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
