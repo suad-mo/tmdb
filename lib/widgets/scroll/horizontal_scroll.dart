@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tmdb/screens/media_screen.dart';
+import 'package:tmdb/screens/list_media_screen.dart';
+// import 'package:tmdb/screens/media_screen.dart';
 
 import '../../helpers/tmbd_res_data.dart';
 import '../../models/item_media.dart';
@@ -11,6 +12,10 @@ class HorizontalScroll extends StatefulWidget {
   final TypeListMedia typeListMedia;
   String get typeMedia {
     return InfoListTmdb.setByType(typeListMedia).titleSufix;
+  }
+
+  String get title {
+    return InfoListTmdb.setByType(typeListMedia).title;
   }
 
   @override
@@ -94,7 +99,8 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                InfoListTmdb.setByType(widget.typeListMedia).title,
+                widget
+                    .title, //InfoListTmdb.setByType(widget.typeListMedia).title,
                 style: const TextStyle(
                   fontSize: 20,
                   color: Colors
@@ -125,7 +131,10 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
             IconButton(
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamed(MediaScreen.routeName, arguments: _items);
+                    .pushNamed(ListMediaScreen.routeName, arguments: {
+                  'items': _items,
+                  'title': widget.title,
+                });
               },
               icon: const Icon(
                 Icons.arrow_forward_outlined,

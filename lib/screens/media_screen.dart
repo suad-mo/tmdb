@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 
 import '../models/item_media.dart';
 import 'movie/movie_screen.dart';
@@ -24,7 +24,7 @@ class MediaScreen extends StatelessWidget {
         // scrolledUnderElevation: 100,
         // systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: ListView.builder(
           itemCount: items.length,
@@ -41,7 +41,7 @@ class MediaScreen extends StatelessWidget {
                 },
                 child: Container(
                   height: 220,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Row(children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(20),
@@ -75,7 +75,7 @@ class MediaScreen extends StatelessWidget {
                           children: [
                             Text(
                               items[i].title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),

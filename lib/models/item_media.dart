@@ -8,6 +8,7 @@ class ItemMedia {
     required this.posterPath,
     required this.genres,
     required this.voteAverage,
+    required this.releaseDate,
     required this.isOK,
   });
 
@@ -16,6 +17,7 @@ class ItemMedia {
   final String posterPath;
   final num voteAverage;
   final List<String> genres;
+  final String releaseDate;
   final bool isOK;
 
   factory ItemMedia.fromJson(Map<String, dynamic> data) {
@@ -23,8 +25,10 @@ class ItemMedia {
       final num id = data['id'];
       String title;
       List<String> genres = [];
+      String releaseDate;
       if (data.containsKey('title')) {
         title = data['title'];
+        releaseDate = data['release_date'];
         final genreIds = data['genre_ids'];
         genresMovie.forEach((key, value) {
           if (genreIds.contains(key)) {
@@ -33,6 +37,7 @@ class ItemMedia {
         });
       } else {
         title = data['name'];
+        releaseDate = data['first_air_date'];
         final genreIds = data['genre_ids'];
         genresTv.forEach((key, value) {
           if (genreIds.contains(key)) {
@@ -48,6 +53,7 @@ class ItemMedia {
         posterPath: posterPath,
         genres: genres,
         voteAverage: voteAverage,
+        releaseDate: releaseDate,
         isOK: true,
       );
     } catch (e) {
@@ -57,6 +63,7 @@ class ItemMedia {
         posterPath: '',
         genres: [],
         voteAverage: 0,
+        releaseDate: '',
         isOK: false,
       );
     }
