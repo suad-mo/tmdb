@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tmdb/screens/media_screen.dart';
 
 import '../providers/media_provider.dart';
 import '../screens/poster_screen.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         routes: {
           // MovieScreen.routeName: (ctx) => const MovieScreen(),
           PosterScreen.routeName: (ctx) => const PosterScreen(),
+          MediaScreen.routeName: (ctx) => const MediaScreen(),
         },
       ),
     );

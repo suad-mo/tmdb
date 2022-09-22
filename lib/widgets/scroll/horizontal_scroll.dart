@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tmdb/screens/media_screen.dart';
 
 import '../../helpers/tmbd_res_data.dart';
 import '../../models/item_media.dart';
@@ -122,7 +123,10 @@ class _HorizontalScrolBState extends State<HorizontalScroll> {
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
-              onPressed: _isLoading ? null : _refreshData,
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(MediaScreen.routeName, arguments: _items);
+              },
               icon: const Icon(
                 Icons.arrow_forward_outlined,
                 color: Colors.black,

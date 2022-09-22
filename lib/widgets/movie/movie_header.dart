@@ -82,13 +82,12 @@ class MovieHeader extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                           child: Container(
                             color: Colors.black12,
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(5),
                             width: 48,
                             height: 48,
-                            child: SvgPicture.network(
-                              'https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg',
-                              color: Colors.blue,
-                              fit: BoxFit.cover,
+                            child: SvgPicture.asset(
+                              'assets/svg/tmdb.svg',
+                              color: Colors.blueAccent,
                             ),
                           ),
                         ),
