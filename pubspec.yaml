@@ -39,6 +39,8 @@ dependencies:
   cached_network_image: ^3.2.1
   card_swiper: ^2.0.4
   flutter_svg: ^1.1.5
+  equatable: ^2.0.5
+  internet_connection_checker: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:
