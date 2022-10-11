@@ -1,19 +1,17 @@
-import 'package:tmdb/core/domain/repositories/movie_repository.dart';
-import 'package:tmdb/core/domain/use_cases/params/popular_movies_params.dart';
-import 'package:tmdb/core/error/failures/failure.dart';
-
 import 'package:dartz/dartz.dart';
 
+import '../../error/failures/failure.dart';
+import '../repositories/movie_repository.dart';
 import '../entities/movie_entity.dart';
-
+import 'params/no_params.dart';
 import 'use_case.dart';
 
-class GetPopularMovies extends UseCase<List<MovieEntity>, PopularMovieParams> {
+class GetPopularMovies extends UseCase<List<MovieEntity>, NoParams> {
   GetPopularMovies(MovieRepository movieRepository)
       : super(movieRepository: movieRepository);
 
   @override
-  Future<Either<Failure, List<MovieEntity>>> call(PopularMovieParams params) {
-    return movieRepository.getListMovie();
+  Future<Either<Failure, List<MovieEntity>>> call(NoParams params) {
+    return movieRepository.getPopularMovies();
   }
 }
