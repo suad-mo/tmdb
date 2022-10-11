@@ -11,6 +11,11 @@ import '../models/item_media.dart';
 import '../models/tv.dart';
 import '../models/movie.dart';
 
+const headers = <String, String>{
+  'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
+  'Content-Type': 'application/json;charset=utf-8'
+};
+
 class TypeMedia {
   static const String movie = 'movie';
   static const String tv = 'tv';
@@ -52,10 +57,7 @@ class TmdbData {
       {'page': page.toString()},
     );
     try {
-      return http.get(url, headers: {
-        'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
-        'Content-Type': 'application/json;charset=utf-8'
-      }).then((res) {
+      return http.get(url, headers: headers).then((res) {
         if (res.body.isEmpty) Exception('Greska...res.body.isEmpty = true');
         final extractedData = jsonDecode(res.body);
         return _getListfromJson(extractedData, page);

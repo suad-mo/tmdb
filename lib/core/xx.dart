@@ -34,6 +34,7 @@ class RequestTmbdListMedia {
 class RequestQuery {
   final int page;
   final String language;
+
   String? region;
 
   RequestQuery({
@@ -54,4 +55,20 @@ abstract class ListMovies extends Equatable {
   Future<void> initList();
 
   Future<List<Movie>> get movies => Future.value(_movies);
+}
+
+class DiscoverMovieRequest {
+  final String sortBy;
+  final String page;
+  final String withGenres;
+  final String releaseDateGte;
+  final String releaseDateLte;
+
+  DiscoverMovieRequest({
+    required this.sortBy,
+    required this.page,
+    required this.withGenres,
+    required this.releaseDateGte,
+    required this.releaseDateLte,
+  });
 }
