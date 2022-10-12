@@ -1,17 +1,19 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:tmdb/core/configuration/request/request_movies.dart';
-import 'package:tmdb/core/error/exceptions/server_exception.dart';
 
 import '../../configuration.dart';
+import '../error/exceptions/server_exception.dart';
 
 class ApiClient {
   final Client _client;
 
   const ApiClient(this._client);
 
-  dynamic get(RequestMovies requestMovies) async {
+  dynamic get({
+    required String path,
+    Map<String, String>? query,
+  }) async {
     final headers = <String, String>{
       'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
       'Content-Type': 'application/json;charset=utf-8'
@@ -19,8 +21,8 @@ class ApiClient {
 
     final url = Uri.https(
       TMDB.apiBaseUrl3,
-      requestMovies.path,
-      requestMovies.query,
+      path,
+      query,
     );
 
     final response = await _client.get(url, headers: headers);
