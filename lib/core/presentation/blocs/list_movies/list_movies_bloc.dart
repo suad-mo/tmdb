@@ -1,12 +1,9 @@
-import 'dart:html';
-
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
+
 import 'package:equatable/equatable.dart';
 import 'package:tmdb/core/domain/entities/movie_entity.dart';
 import 'package:tmdb/core/domain/use_cases/get_list_movies.dart';
 import 'package:tmdb/core/domain/use_cases/params/movies_params.dart';
-import 'package:tmdb/core/error/failures/failure.dart';
 
 part 'list_movies_event.dart';
 part 'list_movies_state.dart';
@@ -17,7 +14,7 @@ class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState> {
   ListMoviesBloc({required GetListMovies getListMovies})
       : _getListMovies = getListMovies,
         super(ListMoviesInitial()) {
-    on<ListMoviesEvent>(_listMoviesEventHandler);
+    on<ListMoviesLoadEvent>(_listMoviesEventHandler);
   }
 
   Future<void> _listMoviesEventHandler(
@@ -35,14 +32,17 @@ class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState> {
       ),
     );
 
-    await either.fold((failure) async {
-      emit(ListMoviesErrorState());
-    } , (listMovieEntity) async {
-emit(ListMoviesLoadedState(listMovieEntity: listMovieEntity),);
-    },);
-
-
+    await either.fold(
+      (failure) async {
+        emit(ListMoviesErrorState());
+      },
+      (listMovieEntity) async {
+        emit(
+          ListMoviesLoadedState(listMovieEntity: listMovieEntity),
+        );
+      },
+    );
   }
 
-  void _emitListMovieRetrievalResult(Either<Failue<List<Movie>>)
+  // void _emitListMovieRetrievalResult(Either<Failue<List<Movie>>)
 }

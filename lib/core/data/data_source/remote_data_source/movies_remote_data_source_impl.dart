@@ -31,4 +31,17 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   List<MovieModel> _parseDecodedResponse(dynamic decodedResponse) {
     return MoviesResponseModel.fromJson(decodedResponse).movies;
   }
+
+  @override
+  Future<MoviesResponseModel> getMoviesResponse({
+    required String path,
+    Map<String, String>? query,
+  }) async {
+    final decodedResponse = await _apiClient.get(
+      path: path,
+      query: query,
+    );
+
+    return MoviesResponseModel.fromJson(decodedResponse);
+  }
 }

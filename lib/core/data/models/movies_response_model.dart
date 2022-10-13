@@ -7,10 +7,10 @@ class MoviesResponseModel {
     required this.totalPages,
     required this.totalResults,
   });
-  late final int page;
-  late final List<MovieModel> movies;
-  late final int totalPages;
-  late final int totalResults;
+  final int page;
+  final List<MovieModel> movies;
+  final int totalPages;
+  final int totalResults;
 
   factory MoviesResponseModel.fromJson(Map<String, dynamic> json) {
     return MoviesResponseModel(
