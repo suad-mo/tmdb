@@ -1,13 +1,11 @@
 part of 'trending_movies_day_bloc.dart';
 
-@immutable
-// ignore: must_be_immutable
 class TrendingMoviesDayState extends Equatable {
   static const path = '3/trending/movie/day';
   int? page;
-  int? totalPage;
-  int? totalResult;
-  List<MovieEntity>? movies;
+  int? totalPage = 0;
+  int? totalResult = 0;
+  List<MovieEntity>? movies = <MovieEntity>[];
   TrendingMoviesDayState({
     this.page,
     this.totalPage,
@@ -26,7 +24,7 @@ class TrendingMoviesDayState extends Equatable {
 
 // ignore: must_be_immutable
 class TrendingMoviesDayInitialState extends TrendingMoviesDayState {
-  TrendingMoviesDayInitialState();
+  TrendingMoviesDayInitialState() : super();
 }
 
 // ignore: must_be_immutable

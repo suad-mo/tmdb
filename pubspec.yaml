@@ -43,6 +43,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   dartz: ^0.10.1
   flutter_bloc: ^8.1.1
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/placeholder.png
+    - assets/images/tmdb_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

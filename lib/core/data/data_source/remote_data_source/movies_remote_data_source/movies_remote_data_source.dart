@@ -1,5 +1,5 @@
-import 'package:tmdb/core/data/models/movie_model.dart';
-import 'package:tmdb/core/data/models/movies_response_model.dart';
+import '../../../models/movie_model.dart';
+import '../../../models/movies_response_model.dart';
 
 abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getPopular();

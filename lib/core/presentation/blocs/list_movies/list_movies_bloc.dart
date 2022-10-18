@@ -1,18 +1,21 @@
 import 'package:bloc/bloc.dart';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:tmdb/core/domain/entities/movie_entity.dart';
-import 'package:tmdb/core/domain/use_cases/get_list_movies.dart';
+import 'package:tmdb/core/domain/entities/movies_response_entity.dart';
+
+import 'package:tmdb/core/domain/use_cases/get_movies_response.dart';
 import 'package:tmdb/core/domain/use_cases/params/movies_params.dart';
 
 part 'list_movies_event.dart';
 part 'list_movies_state.dart';
 
 class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState> {
-  final GetListMovies _getListMovies;
+  final GetMoviesResponse _getMoviesResponse;
 
-  ListMoviesBloc({required GetListMovies getListMovies})
-      : _getListMovies = getListMovies,
+  ListMoviesBloc({required GetMoviesResponse getMoviesResponse})
+      : _getMoviesResponse = getMoviesResponse,
         super(ListMoviesInitial()) {
     on<ListMoviesLoadEvent>(_listMoviesEventHandler);
   }
@@ -22,10 +25,11 @@ class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState> {
     Emitter<ListMoviesState> emit,
   ) async {
     emit(ListMoviesLoadingState());
+    //final x = state.page + 1;
     final path = event._path;
     final query = event._query;
 
-    final either = await _getListMovies(
+    final either = await _getMoviesResponse(
       MoviesParams(
         path: path,
         query: query,
@@ -36,9 +40,9 @@ class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState> {
       (failure) async {
         emit(ListMoviesErrorState());
       },
-      (listMovieEntity) async {
+      (moviesResponseEntity) async {
         emit(
-          ListMoviesLoadedState(listMovieEntity: listMovieEntity),
+          ListMoviesLoadedState(moviesResponseEntity: moviesResponseEntity),
         );
       },
     );

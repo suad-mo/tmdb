@@ -1,7 +1,7 @@
 import 'package:tmdb/core/data/api_client.dart';
 
-import '../../models/movie_model.dart';
-import '../../models/movies_response_model.dart';
+import '../../../models/movie_model.dart';
+import '../../../models/movies_response_model.dart';
 import 'movies_remote_data_source.dart';
 
 class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {

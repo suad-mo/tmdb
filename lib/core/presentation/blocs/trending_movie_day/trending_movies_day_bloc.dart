@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:tmdb/core/domain/entities/movie_entity.dart';
 import 'package:tmdb/core/domain/use_cases/get_movies_response.dart';
+import 'package:tmdb/models/movie.dart';
 
 import '../../../domain/entities/movies_response_entity.dart';
 import '../../../domain/use_cases/params/movies_params.dart';
