@@ -13,10 +13,17 @@ part 'list_movies_state.dart';
 
 class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState> {
   final GetMoviesResponse _getMoviesResponse;
-
-  ListMoviesBloc({required GetMoviesResponse getMoviesResponse})
-      : _getMoviesResponse = getMoviesResponse,
-        super(ListMoviesInitial()) {
+  final String path;
+  final Map<String, String> query;
+  ListMoviesBloc({
+    required this.path,
+    required this.query,
+    required GetMoviesResponse getMoviesResponse,
+  })  : _getMoviesResponse = getMoviesResponse,
+        super(const ListMoviesInitialState()) {
+    on<ListMoviesStarted>(
+      (event, emit) {},
+    );
     on<ListMoviesLoadEvent>(_listMoviesEventHandler);
   }
 
@@ -24,10 +31,16 @@ class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState> {
     ListMoviesLoadEvent event,
     Emitter<ListMoviesState> emit,
   ) async {
-    emit(ListMoviesLoadingState());
-    //final x = state.page + 1;
-    final path = event._path;
-    final query = event._query;
+    emit(const ListMoviesLoadingState());
+    final state = this.state;
+    if (state is ListMoviesInitialState) {
+      final x = state.props.first;
+    } else if (state is ListMoviesLoadedState) {
+      final y = state.moviesResponseEntity;
+    }
+    final path = this.path;
+    final query = this.query;
+    //query.addAll({'page': '${state.props.moviesRepository + 1}'});
 
     final either = await _getMoviesResponse(
       MoviesParams(

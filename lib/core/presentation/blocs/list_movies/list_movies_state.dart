@@ -2,53 +2,55 @@ part of 'list_movies_bloc.dart';
 
 // ignore: must_be_immutable
 abstract class ListMoviesState extends Equatable {
-  ListMoviesState({
-    this.page,
-    this.totalPages,
-    this.totalResults,
-  });
-  final List<MovieEntity> _items = <MovieEntity>[];
-
-  List<MovieEntity> get items => _items;
-
-  // set items(List<MovieEntity> items) {
-  //   _items = items;
-  // }
-  int? page;
-  int? totalPages;
-  int? totalResults;
-
-  void _addItems(List<MovieEntity> newItems) {
-    items.addAll(newItems);
-  }
+  const ListMoviesState();
 
   @override
-  List<Object?> get props => [_items, page, totalPages, totalResults];
+  List<Object?> get props => [];
 }
 
-@immutable
-class ListMoviesInitial extends ListMoviesState {
-  ListMoviesInitial() : super(page: 0, totalPages: 0, totalResults: 0);
+class ListMoviesInitialState extends ListMoviesState {
+  const ListMoviesInitialState();
+
+  @override
+  List<Object?> get props => [];
 }
 
-@immutable
-class ListMoviesLoadingState extends ListMoviesState {}
+class ListMoviesLoadingState extends ListMoviesState {
+  const ListMoviesLoadingState();
 
-@immutable
+  @override
+  List<Object?> get props => [];
+}
+
 class ListMoviesLoadedState extends ListMoviesState {
   final MoviesResponseEntity moviesResponseEntity;
 
-  ListMoviesLoadedState({
+  const ListMoviesLoadedState({
     required this.moviesResponseEntity,
-  }) {
-    _addItems(moviesResponseEntity.movies);
-    page = moviesResponseEntity.page;
-    totalPages = moviesResponseEntity.totalPages;
-    totalPages = moviesResponseEntity.totalResults;
-  }
+  });
 
   @override
   List<Object> get props => [moviesResponseEntity];
 }
 
-class ListMoviesErrorState extends ListMoviesState {}
+class ListMoviesErrorState extends ListMoviesState {
+  const ListMoviesErrorState();
+}
+
+class ListMoviesReloadedState extends ListMoviesState {
+  final MoviesResponseEntity oldMoviesResponseEntity;
+  final MoviesResponseEntity newMoviesResponseEntity;
+
+  const ListMoviesReloadedState({
+    required this.oldMoviesResponseEntity,
+    required this.newMoviesResponseEntity,
+  });
+
+  @override
+  List<Object> get props => [oldMoviesResponseEntity, newMoviesResponseEntity];
+}
+
+class ListMoviesReloadErrorState extends ListMoviesState {
+  final MoviesResponseEntity oldMoviesResponseEntity;
+  const ListMoviesReloadErrorState(this.oldMoviesResponseEntity);
+}

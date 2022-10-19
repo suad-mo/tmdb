@@ -7,11 +7,34 @@ abstract class ListMoviesEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class ListMoviesStarted extends ListMoviesEvent {
+  const ListMoviesStarted();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class ListMoviesLoadEvent extends ListMoviesEvent {
   final String _path;
   final Map<String, String>? _query;
 
   const ListMoviesLoadEvent({required String path, Map<String, String>? query})
+      : _path = path,
+        _query = query;
+
+  String get path => _path;
+  Map<String, String>? get query => _query;
+
+  @override
+  List<Object?> get props => [_path, _query];
+}
+
+class ListMoviesReloadEvent extends ListMoviesEvent {
+  final String _path;
+  final Map<String, String>? _query;
+
+  const ListMoviesReloadEvent(
+      {required String path, Map<String, String>? query})
       : _path = path,
         _query = query;
 
