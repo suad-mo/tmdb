@@ -16,7 +16,9 @@ class ListMoviesInitialState extends ListMoviesState {
 }
 
 class ListMoviesLoadingState extends ListMoviesState {
-  const ListMoviesLoadingState();
+  final MoviesResponseEntity? moviesResponseEntity;
+
+  const ListMoviesLoadingState({this.moviesResponseEntity});
 
   @override
   List<Object?> get props => [];
@@ -34,23 +36,34 @@ class ListMoviesLoadedState extends ListMoviesState {
 }
 
 class ListMoviesErrorState extends ListMoviesState {
-  const ListMoviesErrorState();
+  final MoviesResponseEntity? moviesResponseEntity;
+  const ListMoviesErrorState({this.moviesResponseEntity});
 }
 
-class ListMoviesReloadedState extends ListMoviesState {
-  final MoviesResponseEntity oldMoviesResponseEntity;
-  final MoviesResponseEntity newMoviesResponseEntity;
+// class ListMoviesReloadingState extends ListMoviesState {
+//   const ListMoviesReloadingState({
+//     required this.oldMoviesResponseEntity,
+//   });
+//   final MoviesResponseEntity oldMoviesResponseEntity;
 
-  const ListMoviesReloadedState({
-    required this.oldMoviesResponseEntity,
-    required this.newMoviesResponseEntity,
-  });
+//   @override
+//   List<Object?> get props => [];
+// }
 
-  @override
-  List<Object> get props => [oldMoviesResponseEntity, newMoviesResponseEntity];
-}
+// class ListMoviesReloadedState extends ListMoviesState {
+//   final MoviesResponseEntity oldMoviesResponseEntity;
+//   final MoviesResponseEntity newMoviesResponseEntity;
 
-class ListMoviesReloadErrorState extends ListMoviesState {
-  final MoviesResponseEntity oldMoviesResponseEntity;
-  const ListMoviesReloadErrorState(this.oldMoviesResponseEntity);
-}
+//   const ListMoviesReloadedState({
+//     required this.oldMoviesResponseEntity,
+//     required this.newMoviesResponseEntity,
+//   });
+
+//   @override
+//   List<Object> get props => [oldMoviesResponseEntity, newMoviesResponseEntity];
+// }
+
+// class ListMoviesReloadErrorState extends ListMoviesState {
+//   final MoviesResponseEntity oldMoviesResponseEntity;
+//   const ListMoviesReloadErrorState(this.oldMoviesResponseEntity);
+// }
