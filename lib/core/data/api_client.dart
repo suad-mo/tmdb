@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import '../../configuration.dart';
@@ -14,6 +15,10 @@ class ApiClient {
     required String path,
     Map<String, String>? query,
   }) async {
+    debugPrint('aaaaa');
+    // debugPrint(path);
+    // debugPrint(query.toString());
+
     final headers = <String, String>{
       'Authorization': 'Bearer ${TMDB.apiReadAccessToken}',
       'Content-Type': 'application/json;charset=utf-8'
@@ -22,11 +27,11 @@ class ApiClient {
     final url = Uri.https(
       TMDB.apiBaseUrl3,
       path,
-      query,
+      // query,
     );
 
     final response = await _client.get(url, headers: headers);
-
+    debugPrint('response: ${response.reasonPhrase} ${response.statusCode}');
     if (response.statusCode == 200) {
       return json.decode(response.body);
     }

@@ -63,6 +63,7 @@ class MovieModel extends MovieEntity {
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
     final id = int.tryParse(json['id']) ?? 0;
+    print(id.toString());
     final title = json['title'].toString();
     final posterPath = json['poster_path'].toString();
     final releaseDate = json['release_date'].toString();

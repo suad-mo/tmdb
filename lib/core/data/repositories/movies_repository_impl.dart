@@ -1,20 +1,22 @@
 import 'package:dartz/dartz.dart';
-import 'package:tmdb/core/domain/entities/movies_response_entity.dart';
 
+import '../data_source/remote_data_source/movies_remote_data_source/movies_remote_data_source_impl.dart';
+import '../data_source/remote_data_source/movies_remote_data_source/movies_remote_data_source.dart';
+import '../../domain/entities/movies_response_entity.dart';
 import '../../domain/entities/movie_entity.dart';
 import '../../domain/repositories/movie_repository.dart';
 
 import '../../error/failures/failure.dart';
 import '../../error/failures/server_failure.dart';
 
-import '../data_source/remote_data_source/movies_remote_data_source/movies_remote_data_source.dart';
 import '../models/movie_model.dart';
 import '../models/movies_response_model.dart';
 
 class MovieRepositoryImpl extends MovieRepository {
   final MovieRemoteDataSource _movieRemoteDataSource;
 
-  MovieRepositoryImpl({required MovieRemoteDataSource movieRemoteDataSource})
+  MovieRepositoryImpl(
+      {required MovieRemoteDataSourceImpl movieRemoteDataSource})
       : _movieRemoteDataSource = movieRemoteDataSource;
 
   @override
@@ -50,13 +52,16 @@ class MovieRepositoryImpl extends MovieRepository {
     Map<String, String>? query,
   }) async {
     try {
+      print('ppppp $path');
       final MoviesResponseModel res =
           await _movieRemoteDataSource.getMoviesResponse(
         path: path,
         query: query,
       );
+      print('kkkkk');
       return Right(res as MoviesResponseEntity);
     } catch (e) {
+      print('greska...${e.toString()}');
       return Left(ServerFailure());
     }
   }

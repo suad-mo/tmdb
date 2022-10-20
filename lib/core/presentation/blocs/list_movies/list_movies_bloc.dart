@@ -1,20 +1,25 @@
-import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
+// import 'package:bloc/bloc.dart';
+// import 'package:dartz/dartz.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:tmdb/core/domain/entities/movie_entity.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:tmdb/core/domain/entities/movie_entity.dart';
 import 'package:tmdb/core/domain/entities/movies_response_entity.dart';
 
 import 'package:tmdb/core/domain/use_cases/get_movies_response.dart';
 import 'package:tmdb/core/domain/use_cases/params/movies_params.dart';
 
-import '../../../error/failures/failure.dart';
+// import '../../../error/failures/failure.dart';
 
 part 'list_movies_event.dart';
 part 'list_movies_state.dart';
 
-class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState> {
+mixin TrendingList on Bloc<ListMoviesEvent, ListMoviesState> {}
+mixin PopularList on Bloc<ListMoviesEvent, ListMoviesState> {}
+
+class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState>
+    with TrendingList, PopularList {
   final GetMoviesResponse _getMoviesResponse;
   final String path;
   // Map<String, String>? query;

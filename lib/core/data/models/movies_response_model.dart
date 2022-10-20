@@ -1,3 +1,4 @@
+import 'package:dartz/dartz_unsafe.dart';
 import 'package:tmdb/core/data/models/movie_model.dart';
 
 class MoviesResponseModel {
@@ -13,13 +14,20 @@ class MoviesResponseModel {
   final int totalResults;
 
   factory MoviesResponseModel.fromJson(Map<String, dynamic> json) {
+    print(json['results'][0]['id'].toString());
+    final m = <MovieModel>[];
+    json['results'].forEach((result) {
+      m.add(MovieModel.fromJson(result));
+    });
     return MoviesResponseModel(
-      page: json['page'],
-      movies: List.from(json['results'])
-          .map((e) => MovieModel.fromJson(e))
-          .toList(),
-      totalPages: json['total_pages'],
-      totalResults: json['total_results'],
+      page: int.tryParse(json['page']) ?? 0,
+      movies: m,
+      // List.from(json['results']).map((e) {
+      //   print(e['id'].toString());
+      //   return MovieModel.fromJson(e);
+      // }).toList(),
+      totalPages: int.tryParse(json['total_pages']) ?? 0,
+      totalResults: int.tryParse(json['total_results']) ?? 0,
     );
   }
 

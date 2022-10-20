@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:tmdb/core/data/repositories/movies_repository_impl.dart';
 
 import '../../error/failures/failure.dart';
 import '../entities/movies_response_entity.dart';
@@ -12,6 +13,7 @@ class GetMoviesResponse extends UseCase<MoviesResponseEntity, MoviesParams> {
 
   @override
   Future<Either<Failure, MoviesResponseEntity>> call(MoviesParams params) {
+    print('bbbb ${params.path} ${params.query.toString()}');
     return movieRepository.getMoviesResponse(
       path: params.path,
       query: params.query,

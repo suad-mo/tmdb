@@ -15,12 +15,12 @@ abstract class ListMoviesEvent extends Equatable {
 // }
 
 class ListMoviesLoadEvent extends ListMoviesEvent {
-  final MoviesResponseEntity moviesResponseEntity;
+  // final MoviesResponseEntity moviesResponseEntity;
 
-  const ListMoviesLoadEvent({required this.moviesResponseEntity});
+  const ListMoviesLoadEvent(); //{required this.moviesResponseEntity});
 
   @override
-  List<Object?> get props => [moviesResponseEntity];
+  List<Object?> get props => [];
 }
 
 // class ListMoviesReloadEvent extends ListMoviesEvent {
