@@ -27,7 +27,7 @@ class ApiClient {
     final url = Uri.https(
       TMDB.apiBaseUrl3,
       path,
-      // query,
+      query,
     );
 
     final response = await _client.get(url, headers: headers);

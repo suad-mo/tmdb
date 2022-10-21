@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:tmdb/configuration.dart';
 import 'package:tmdb/core/domain/entities/movie_entity.dart';
 
 const Map<int, String> genresMovie = {
@@ -24,16 +25,16 @@ const Map<int, String> genresMovie = {
 };
 
 class MovieModel extends MovieEntity {
-  late final bool adult;
-  late final String backdropPath;
-  late final String originalLanguage;
-  late final String originalTitle;
-  late final String overview;
-  late final String mediaType;
-  late final List<int> genreIds;
-  late final double popularity;
-  late final bool video;
-  late final int voteCount;
+  final bool adult;
+  final String backdropPath;
+  final String originalLanguage;
+  final String originalTitle;
+  final String overview;
+  final String mediaType;
+  final List<int> genreIds;
+  final double popularity;
+  final bool video;
+  final int voteCount;
 
   MovieModel({
     required int id,
@@ -62,22 +63,25 @@ class MovieModel extends MovieEntity {
                 .toList());
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
-    final id = int.tryParse(json['id']) ?? 0;
-    print(id.toString());
+    //print('QQQ: ${json['id']}');
+    final int id = (json['id']) as int; // ?? 0;
+    //print(id.toString());
     final title = json['title'].toString();
-    final posterPath = json['poster_path'].toString();
+    final posterPath = json['poster_path'] != null
+        ? TMDB.https + json['poster_path'].toString()
+        : '${TMDB.https}/ujr5pztc1oitbe7ViMUOilFaJ7s.jpg';
     final releaseDate = json['release_date'].toString();
-    final voteAverage = double.tryParse(json['vote_average']) ?? 0.0;
+    final voteAverage = (json['vote_average']) as double; // ?? 0.0;
     final adult = json['adult'] as bool;
-    final backdropPath = json['backdrop_path'].toString();
+    final backdropPath = TMDB.urlBack + json['backdrop_path'].toString();
     final originalTitle = json['original_title'].toString();
     final overview = json['overview'].toString();
     final originalLanguage = json['original_language'].toString();
     final mediaType = json['media_type'].toString();
     final genreIds = List.castFrom<dynamic, int>(json['genre_ids']);
-    final popularity = double.tryParse(json['popularity']) ?? 0.0;
+    final popularity = (json['popularity']) as double; // ?? 0.0;
     final video = json['video'] as bool;
-    final voteCount = int.tryParse(json['vote_count']) ?? 0;
+    final voteCount = (json['vote_count']) as int; // ?? 0;
     return MovieModel(
       id: id,
       title: title,

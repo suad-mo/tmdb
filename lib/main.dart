@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
-import 'package:provider/provider.dart';
-import 'package:tmdb/core/data/api_client.dart';
-import 'package:tmdb/core/data/data_source/remote_data_source/movies_remote_data_source/movies_remote_data_source_impl.dart';
-import 'package:tmdb/core/data/repositories/movies_repository_impl.dart';
-import 'package:tmdb/core/domain/entities/movies_response_entity.dart';
-import 'package:tmdb/core/domain/repositories/movie_repository.dart';
-import 'package:tmdb/core/domain/use_cases/get_movies_response.dart';
-import 'package:tmdb/core/presentation/blocs/list_movies/list_movies_bloc.dart';
 
-import '../providers/media_provider.dart';
+import 'core/data/api_client.dart';
+import 'core/data/data_source/remote_data_source/movies_remote_data_source/movies_remote_data_source_impl.dart';
+import 'core/data/repositories/movies_repository_impl.dart';
+
+import 'core/domain/use_cases/get_movies_response.dart';
+import 'core/presentation/blocs/list_movies/list_movies_bloc.dart';
+
 import '../screens/poster_screen.dart';
-import '../screens/home/home_screen.dart';
-import '../providers/movie_provider.dart';
+
 import 'core/presentation/home_list_scren.dart';
 
 void main() {

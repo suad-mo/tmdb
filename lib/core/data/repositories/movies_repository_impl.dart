@@ -52,16 +52,16 @@ class MovieRepositoryImpl extends MovieRepository {
     Map<String, String>? query,
   }) async {
     try {
-      print('ppppp $path');
+      //print('ppppp $path');
       final MoviesResponseModel res =
           await _movieRemoteDataSource.getMoviesResponse(
         path: path,
         query: query,
       );
-      print('kkkkk');
-      return Right(res as MoviesResponseEntity);
+      //print('kkkkk');
+      return Right(res); // as MoviesResponseEntity);
     } catch (e) {
-      print('greska...${e.toString()}');
+      //print('greska...${e.toString()}');
       return Left(ServerFailure());
     }
   }

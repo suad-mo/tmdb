@@ -29,7 +29,7 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   }
 
   List<MovieModel> _parseDecodedResponse(dynamic decodedResponse) {
-    return MoviesResponseModel.fromJson(decodedResponse).movies;
+    return MoviesResponseModel.fromJson(decodedResponse).moviesM;
   }
 
   @override
@@ -41,7 +41,7 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
       path: path,
       query: query,
     );
-    print('ggggg');
+    //print('ggggg');
     return MoviesResponseModel.fromJson(decodedResponse);
   }
 }
