@@ -12,7 +12,7 @@ class Scroll extends StatelessWidget {
 
   // final ListMoviesBloc bloc;
   final List<MovieEntity> items;
-  final VoidCallback update;
+  final Future<void> Function() update;
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +21,26 @@ class Scroll extends StatelessWidget {
         AppBar(
           elevation: 0,
           title: const Text('Title Movie'),
-          actions: [
-            IconButton(onPressed: update, icon: const Icon(Icons.arrow_forward))
-          ],
+          // actions: [
+          //   IconButton(onPressed: update, icon: const Icon(Icons.arrow_forward))
+          // ],
         ),
         Container(
           width: double.infinity,
           height: 240,
           margin: const EdgeInsets.symmetric(horizontal: 5),
-          child: ListView.builder(
-            // controller: _controller,
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: items.length,
-            itemBuilder: (context, index) => ItemScroll(
-              item: items[index],
+          child: RefreshIndicator(
+            edgeOffset: 20,
+            color: Colors.yellow,
+            onRefresh: () => update(),
+            child: ListView.builder(
+              // controller: _controller,
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: items.length,
+              itemBuilder: (context, index) => ItemScroll(
+                item: items[index],
+              ),
             ),
           ),
         ),

@@ -71,7 +71,7 @@ class MovieModel extends MovieEntity {
         ? TMDB.https + json['poster_path'].toString()
         : '${TMDB.https}/ujr5pztc1oitbe7ViMUOilFaJ7s.jpg';
     final releaseDate = json['release_date'].toString();
-    final voteAverage = (json['vote_average']) as double; // ?? 0.0;
+    final voteAverage = json['vote_average']; // ?? 0.0;
     final adult = json['adult'] as bool;
     final backdropPath = TMDB.urlBack + json['backdrop_path'].toString();
     final originalTitle = json['original_title'].toString();
@@ -87,7 +87,7 @@ class MovieModel extends MovieEntity {
       title: title,
       posterPath: posterPath,
       releaseDate: releaseDate,
-      voteAverage: voteAverage,
+      voteAverage: voteAverage * 1.0,
       backdropPath: backdropPath,
       adult: adult,
       originalLanguage: originalLanguage,

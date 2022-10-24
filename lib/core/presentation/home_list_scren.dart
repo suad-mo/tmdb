@@ -14,53 +14,64 @@ class HomeListScren extends StatelessWidget {
       ),
       floatingActionButton: ElevatedButton(
         child: const Icon(Icons.add),
-        onPressed: () {
-          BlocProvider.of<TrendingList>(context)
-              .add(const ListMoviesLoadEvent());
+        onPressed: () async {
+          context.read<TrendingList>().add(const ListMoviesLoadEvent());
+          // BlocProvider.of<TrendingList>(context)
+          //     .add(const ListMoviesLoadEvent());
         },
       ),
-      body: BlocBuilder<TrendingList, ListMoviesState>(builder: (_, state) {
-        if (state is ListMoviesLoadingState) {
-          return const Center(
-            child: Text('Loading state'),
-          );
-        } else if (state is ListMoviesLoadedState) {
-          return Scroll(
-            items: state.moviesResponseEntity.movies,
-            update: () async {
-              BlocProvider.of<TrendingList>(context)
-                  .add(const ListMoviesLoadEvent());
-            },
-          );
-          // Center(
-          //   child: RefreshIndicator(
-          //     notificationPredicate: (notification) => true,
-          //     edgeOffset: 20,
-          //     color: Colors.yellow,
-          // onRefresh: () async {
-          //   BlocProvider.of<TrendingList>(context)
-          //       .add(const ListMoviesLoadEvent());
-          // },
-          //     child: ListView.builder(
-          //       itemCount: state.moviesResponseEntity.movies.length,
-          //       itemBuilder: ((_, i) => ListTile(
-          //             title: Text(
-          //                 '${i + 1}: ${state.moviesResponseEntity.movies[i].title}'),
-          //           )),
-          //     ),
-          //   ),
-          // );
-        } else if (state is ListMoviesErrorState) {
-          return const Center(
-            child: Text('Error state'),
-          );
-        } else if (state is ListMoviesInitialState) {
-          return const Center(
-            child: Text('Initial State'),
-          );
-        }
-        return const Center(child: Text('aaaaaaaaaaaa'));
-      }),
+      body: Column(
+        children: [
+          BlocBuilder<TrendingList, ListMoviesState>(builder: (_, state) {
+            if (state is ListMoviesLoadingState) {
+              return const Center(
+                child: Text('Loading state'),
+              );
+            } else if (state is ListMoviesLoadedState) {
+              return Scroll(
+                items: state.moviesResponseEntity.movies,
+                update: () async {
+                  BlocProvider.of<TrendingList>(context)
+                      .add(const ListMoviesLoadEvent());
+                },
+              );
+            } else if (state is ListMoviesErrorState) {
+              return const Center(
+                child: Text('Error state'),
+              );
+            } else if (state is ListMoviesInitialState) {
+              return const Center(
+                child: Text('Initial State'),
+              );
+            }
+            return const Center(child: Text('aaaaaaaaaaaa'));
+          }),
+          // BlocBuilder<PopularList, ListMoviesState>(builder: (_, state) {
+          //   if (state is ListMoviesLoadingState) {
+          //     return const Center(
+          //       child: Text('Loading state'),
+          //     );
+          //   } else if (state is ListMoviesLoadedState) {
+          //     return Scroll(
+          //       items: state.moviesResponseEntity.movies,
+          //       update: () async {
+          //         BlocProvider.of<PopularList>(context)
+          //             .add(const ListMoviesLoadEvent());
+          //       },
+          //     );
+          //   } else if (state is ListMoviesErrorState) {
+          //     return const Center(
+          //       child: Text('Error state'),
+          //     );
+          //   } else if (state is ListMoviesInitialState) {
+          //     return const Center(
+          //       child: Text('Initial State'),
+          //     );
+          //   }
+          //   return const Center(child: Text('aaaaaaaaaaaa'));
+          // }),
+        ],
+      ),
     );
   }
 }

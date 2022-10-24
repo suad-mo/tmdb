@@ -12,7 +12,7 @@ class GetMoviesResponse extends UseCase<MoviesResponseEntity, MoviesParams> {
 
   @override
   Future<Either<Failure, MoviesResponseEntity>> call(MoviesParams params) {
-    //print('bbbb ${params.path} ${params.query.toString()}');
+    print('bbbb ${params.path} ${params.query.toString()}');
     return movieRepository.getMoviesResponse(
       path: params.path,
       query: params.query,

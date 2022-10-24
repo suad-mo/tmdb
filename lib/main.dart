@@ -35,6 +35,17 @@ class MyApp extends StatelessWidget {
             ),
           )..add(const ListMoviesLoadEvent()),
         ),
+        // BlocProvider<PopularList>(
+        //   create: (_) => ListMoviesBloc(
+        //     path: '/3/movie/popular',
+        //     getMoviesResponse: GetMoviesResponse(
+        //       MovieRepositoryImpl(
+        //         movieRemoteDataSource:
+        //             MovieRemoteDataSourceImpl(ApiClient(Client())),
+        //       ),
+        //     ),
+        //   )..add(const ListMoviesLoadEvent()),
+        // ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

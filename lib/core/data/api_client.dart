@@ -15,7 +15,7 @@ class ApiClient {
     required String path,
     Map<String, String>? query,
   }) async {
-    debugPrint('aaaaa');
+    // debugPrint('aaaaa');
     // debugPrint(path);
     // debugPrint(query.toString());
 
@@ -33,6 +33,7 @@ class ApiClient {
     final response = await _client.get(url, headers: headers);
     debugPrint('response: ${response.reasonPhrase} ${response.statusCode}');
     if (response.statusCode == 200) {
+      print(response.body.toString());
       return json.decode(response.body);
     }
 

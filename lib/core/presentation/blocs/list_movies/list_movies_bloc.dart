@@ -42,7 +42,7 @@ class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState>
 
     if (state is ListMoviesInitialState) {
       emit(const ListMoviesLoadingState());
-      // query = {'page': '1'};
+      query = {'page': '1'};
 
       final either = await _getMoviesResponse(
         MoviesParams(
@@ -50,6 +50,7 @@ class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState>
           query: query,
         ),
       );
+      print(path);
       await either.fold(
         (failure) async {
           emit(const ListMoviesErrorState());
@@ -67,10 +68,10 @@ class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState>
         totalPages: state.moviesResponseEntity.totalPages,
         totalResults: state.moviesResponseEntity.totalResults,
       );
-      emit(
-        ListMoviesLoadingState(
-            moviesResponseEntity: state.moviesResponseEntity),
-      );
+      // emit(
+      //   ListMoviesLoadingState(
+      //       moviesResponseEntity: state.moviesResponseEntity),
+      // );
       query = {'page': '${state.moviesResponseEntity.page + 1}'};
 
       final either = await _getMoviesResponse(
