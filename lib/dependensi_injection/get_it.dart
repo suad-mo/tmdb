@@ -23,6 +23,8 @@ class AppGetIt {
       instanceName: 'TendingListMovies',
     );
 
+    // getIt.registerLazySingleton(() => ;?
+
     // user case
     getIt.registerLazySingleton(
         () => GetMoviesResponse(getIt<MovieRepository>()));

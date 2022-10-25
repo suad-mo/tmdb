@@ -32,7 +32,7 @@ class ListMoviesLoadedState extends ListMoviesState {
   });
 
   @override
-  List<Object> get props => [moviesResponseEntity];
+  List<Object?> get props => [moviesResponseEntity];
 }
 
 class ListMoviesErrorState extends ListMoviesState {

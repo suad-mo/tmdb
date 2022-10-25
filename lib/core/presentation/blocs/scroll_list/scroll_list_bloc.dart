@@ -1,71 +1,62 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/movies_response_entity.dart';
 import '../../../domain/use_cases/get_movies_response.dart';
 import '../../../domain/use_cases/params/movies_params.dart';
 
-part 'list_movies_event.dart';
-part 'list_movies_state.dart';
+part 'scroll_list_event.dart';
+part 'scroll_list_state.dart';
 
-mixin TrendingList on Bloc<ListMoviesEvent, ListMoviesState> {}
-mixin PopularList on Bloc<ListMoviesEvent, ListMoviesState> {}
-
-class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState>
-    with TrendingList, PopularList {
+class ScrollListBloc extends Bloc<ScrollListEvent, ScrollListState> {
   final GetMoviesResponse _getMoviesResponse;
   final String path;
   Map<String, String>? query;
-
-  ListMoviesBloc({
-    required this.path,
-    this.query,
-    required GetMoviesResponse getMoviesResponse,
-  })  : _getMoviesResponse = getMoviesResponse,
-        super(const ListMoviesInitialState()) {
-    on<ListMoviesLoadEvent>(_listMoviesLoadEventHandler);
+  ScrollListBloc(
+      {required this.path,
+      this.query,
+      required GetMoviesResponse getMoviesResponse})
+      : _getMoviesResponse = getMoviesResponse,
+        super(const ScrollListInitial()) {
+    on<ScrollListLoadEvent>(_scrollListLoadEvent);
   }
 
-  Future<void> _listMoviesLoadEventHandler(
-    ListMoviesLoadEvent event,
-    Emitter<ListMoviesState> emit,
+  Future<void> _scrollListLoadEvent(
+    ScrollListLoadEvent event,
+    Emitter<ScrollListState> emit,
   ) async {
     final path = this.path;
     final state = this.state;
-    Map<String, String>? query; // = <String, String>{'page': '1'};
+    Map<String, String>? query = this.query;
 
-    if (state is ListMoviesInitialState) {
-      emit(const ListMoviesLoadingState());
-      query = {'page': '1'};
-
+    if (state is ScrollListInitial) {
+      emit(const ScrollListLoadingState());
       final either = await _getMoviesResponse(
         MoviesParams(
           path: path,
           query: query,
         ),
       );
-      //print(path);
+
       await either.fold(
         (failure) async {
-          emit(const ListMoviesErrorState());
+          emit(const ScrollListErrorState());
         },
         (moviesResponseEntity) async {
           emit(
-            ListMoviesLoadedState(moviesResponseEntity: moviesResponseEntity),
+            ScrollListLoadedState(moviesResponseEntity: moviesResponseEntity),
           );
         },
       );
-    } else if (state is ListMoviesLoadedState) {
+    } else if (state is ScrollListLoadedState) {
       final MoviesResponseEntity oldMoviesResEntity = MoviesResponseEntity(
         page: state.moviesResponseEntity.page,
         movies: state.moviesResponseEntity.movies,
         totalPages: state.moviesResponseEntity.totalPages,
         totalResults: state.moviesResponseEntity.totalResults,
       );
-      // emit(
-      //   ListMoviesLoadingState(
-      //       moviesResponseEntity: state.moviesResponseEntity),
-      // );
       query = {'page': '${state.moviesResponseEntity.page + 1}'};
 
       final either = await _getMoviesResponse(
@@ -76,7 +67,7 @@ class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState>
       );
       await either.fold(
         (failure) async {
-          emit(ListMoviesErrorState(moviesResponseEntity: oldMoviesResEntity));
+          emit(ScrollListErrorState(moviesResponseEntity: oldMoviesResEntity));
         },
         (moviesResponseEntity) async {
           final MoviesResponseEntity newMoviesResEntity = MoviesResponseEntity(
@@ -89,7 +80,7 @@ class ListMoviesBloc extends Bloc<ListMoviesEvent, ListMoviesState>
             totalResults: moviesResponseEntity.totalResults,
           );
           emit(
-            ListMoviesLoadedState(moviesResponseEntity: newMoviesResEntity),
+            ScrollListLoadedState(moviesResponseEntity: newMoviesResEntity),
           );
         },
       );

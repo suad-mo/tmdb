@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../screens/movie/movie_screen.dart';
 import '../../../domain/entities/movie_entity.dart';
 
-class ItemScroll extends StatelessWidget {
-  const ItemScroll({super.key, required this.item});
+class ScrollItemWidget extends StatelessWidget {
+  const ScrollItemWidget({super.key, required this.item});
 
   final MovieEntity item;
 

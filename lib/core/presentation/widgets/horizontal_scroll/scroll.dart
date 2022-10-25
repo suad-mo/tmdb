@@ -1,18 +1,51 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:tmdb/core/domain/entities/movie_entity.dart';
-import 'package:tmdb/core/presentation/widgets/horizontal_scroll/item_scroll.dart';
 
-import '../../blocs/list_movies/list_movies_bloc.dart';
+import '../../../domain/entities/movie_entity.dart';
+import 'item_scroll.dart';
 
-class Scroll extends StatelessWidget {
-  const Scroll({super.key, required this.items, required this.update});
+class Scroll extends StatefulWidget {
+  const Scroll(
+      {super.key,
+      required this.items,
+      required this.title,
+      required this.refreshCallback});
 
-  // final ListMoviesBloc bloc;
   final List<MovieEntity> items;
-  final Future<void> Function() update;
+  final String title;
+  final RefreshCallback refreshCallback;
+
+  @override
+  State<Scroll> createState() => _ScrollState();
+}
+
+class _ScrollState extends State<Scroll> {
+  ScrollController _controller = ScrollController();
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
+    super.initState();
+  }
+
+  _scrollListener() {
+    if (_controller.offset >= _controller.position.maxScrollExtent &&
+        !_controller.position.outOfRange) {
+      _refresh();
+    }
+    if (_controller.offset <= _controller.position.minScrollExtent &&
+        !_controller.position.outOfRange) {}
+  }
+
+  Future<void> _refresh() {
+    return widget.refreshCallback();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +53,24 @@ class Scroll extends StatelessWidget {
       children: [
         AppBar(
           elevation: 0,
-          title: const Text('Title Movie'),
-          // actions: [
-          //   IconButton(onPressed: update, icon: const Icon(Icons.arrow_forward))
-          // ],
+          title: Text(
+            widget.title,
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors
+                  .black, // Theme.of(context).appBarTheme.backgroundColor,
+            ),
+          ),
+          backgroundColor:
+              Colors.white, // Theme.of(context).appBarTheme.surfaceTintColor,
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+              onPressed: widget.refreshCallback,
+              icon: const Icon(Icons.arrow_forward),
+              color: Colors.black,
+            ),
+          ],
         ),
         Container(
           width: double.infinity,
@@ -32,14 +79,16 @@ class Scroll extends StatelessWidget {
           child: RefreshIndicator(
             edgeOffset: 20,
             color: Colors.yellow,
-            onRefresh: () => update(),
+            backgroundColor: Colors.red,
+            onRefresh: _refresh,
             child: ListView.builder(
-              // controller: _controller,
+              controller: _controller,
               scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: items.length,
+              physics: const AlwaysScrollableScrollPhysics(),
+              // shrinkWrap: true,
+              itemCount: widget.items.length,
               itemBuilder: (context, index) => ItemScroll(
-                item: items[index],
+                item: widget.items[index],
               ),
             ),
           ),
