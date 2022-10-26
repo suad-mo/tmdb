@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
 
+import 'dependensi_injection/get_it.dart';
+import 'core/presentation/home_scroll_screen.dart';
 import 'core/data/api_client.dart';
 import 'core/data/data_source/remote_data_source/movies_remote_data_source/movies_remote_data_source_impl.dart';
 import 'core/data/repositories/movies_repository_impl.dart';
@@ -11,10 +13,13 @@ import 'core/presentation/blocs/list_movies/list_movies_bloc.dart';
 
 import '../screens/poster_screen.dart';
 
-import 'core/presentation/home_list_scren.dart';
+// import 'core/presentation/home_list_scren.dart';
 
 void main() {
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  AppGetIt.init().then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -52,9 +57,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const HomeListScren(),
+        home: const HomeScrollScreen(),
         routes: {
-          // MovieScreen.routeName: (ctx) => const MovieScreen(),
+          // MoviesScreen.routeName: (ctx) => const MoviesScreen(),
           PosterScreen.routeName: (ctx) => const PosterScreen(),
         },
       ),

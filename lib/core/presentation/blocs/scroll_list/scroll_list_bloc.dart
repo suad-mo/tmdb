@@ -14,11 +14,11 @@ class ScrollListBloc extends Bloc<ScrollListEvent, ScrollListState> {
   final GetMoviesResponse _getMoviesResponse;
   final String path;
   Map<String, String>? query;
-  ScrollListBloc(
-      {required this.path,
-      this.query,
-      required GetMoviesResponse getMoviesResponse})
-      : _getMoviesResponse = getMoviesResponse,
+  ScrollListBloc({
+    required this.path,
+    this.query,
+    required GetMoviesResponse getMoviesResponse,
+  })  : _getMoviesResponse = getMoviesResponse,
         super(const ScrollListInitial()) {
     on<ScrollListLoadEvent>(_scrollListLoadEvent);
   }
@@ -57,7 +57,7 @@ class ScrollListBloc extends Bloc<ScrollListEvent, ScrollListState> {
         totalPages: state.moviesResponseEntity.totalPages,
         totalResults: state.moviesResponseEntity.totalResults,
       );
-      query = {'page': '${state.moviesResponseEntity.page + 1}'};
+      query = this.query ?? {'page': '${state.moviesResponseEntity.page + 1}'};
 
       final either = await _getMoviesResponse(
         MoviesParams(
