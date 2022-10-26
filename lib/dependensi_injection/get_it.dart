@@ -68,4 +68,18 @@ class AppGetIt {
     // external
     getIt.registerLazySingleton<ApiClient>(() => ApiClient(Client()));
   }
+
+  static Future addScrollListBloc({
+    required String path,
+    required String instanceName,
+  }) async {
+    // presentation logic holder
+    getIt.registerFactory(
+      () => ScrollListBloc(
+        path: path,
+        getMoviesResponse: getIt<GetMoviesResponse>(),
+      ),
+      instanceName: instanceName,
+    );
+  }
 }

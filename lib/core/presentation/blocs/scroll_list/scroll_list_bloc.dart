@@ -21,6 +21,7 @@ class ScrollListBloc extends Bloc<ScrollListEvent, ScrollListState> {
   })  : _getMoviesResponse = getMoviesResponse,
         super(const ScrollListInitial()) {
     on<ScrollListLoadEvent>(_scrollListLoadEvent);
+    on<ScrollListLoadWithParamsEvent>(_scrollListLoadWithParamsEvent);
   }
 
   Future<void> _scrollListLoadEvent(
@@ -63,6 +64,82 @@ class ScrollListBloc extends Bloc<ScrollListEvent, ScrollListState> {
         MoviesParams(
           path: path,
           query: query,
+        ),
+      );
+      await either.fold(
+        (failure) async {
+          emit(ScrollListErrorState(moviesResponseEntity: oldMoviesResEntity));
+        },
+        (moviesResponseEntity) async {
+          final MoviesResponseEntity newMoviesResEntity = MoviesResponseEntity(
+            page: moviesResponseEntity.page,
+            movies: [
+              ...oldMoviesResEntity.movies,
+              ...moviesResponseEntity.movies,
+            ],
+            totalPages: state.moviesResponseEntity.totalPages,
+            totalResults: moviesResponseEntity.totalResults,
+          );
+          emit(
+            ScrollListLoadedState(moviesResponseEntity: newMoviesResEntity),
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> _scrollListLoadWithParamsEvent(
+    ScrollListLoadWithParamsEvent event,
+    Emitter<ScrollListState> emit,
+  ) async {
+    final state = this.state;
+    final path = event.path;
+    Map<String, String>? query = event.query;
+
+    _scrollListLoad(state, path, query, emit);
+  }
+
+  Future<void> _scrollListLoad(
+    ScrollListState state,
+    String path,
+    Map<String, String>? query,
+    Emitter<ScrollListState> emit,
+  ) async {
+    if (state is ScrollListInitial) {
+      emit(const ScrollListLoadingState());
+      final either = await _getMoviesResponse(
+        MoviesParams(
+          path: path,
+          query: query,
+        ),
+      );
+
+      await either.fold(
+        (failure) async {
+          emit(const ScrollListErrorState());
+        },
+        (moviesResponseEntity) async {
+          emit(
+            ScrollListLoadedState(moviesResponseEntity: moviesResponseEntity),
+          );
+        },
+      );
+    } else if (state is ScrollListLoadedState) {
+      final MoviesResponseEntity oldMoviesResEntity = MoviesResponseEntity(
+        page: state.moviesResponseEntity.page,
+        movies: state.moviesResponseEntity.movies,
+        totalPages: state.moviesResponseEntity.totalPages,
+        totalResults: state.moviesResponseEntity.totalResults,
+      );
+      final newQuery = {
+        ...query ?? {},
+        'page': '${state.moviesResponseEntity.page + 1}'
+      };
+
+      final either = await _getMoviesResponse(
+        MoviesParams(
+          path: path,
+          query: newQuery,
         ),
       );
       await either.fold(

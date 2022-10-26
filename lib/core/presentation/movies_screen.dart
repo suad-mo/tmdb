@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tmdb/core/domain/use_cases/params/movies_params.dart';
 
+import '../../dependensi_injection/get_it.dart';
 import 'blocs/scroll_list/scroll_list_bloc.dart';
 import 'widgets/movies_grid/movies_grid_widget.dart';
 
@@ -9,9 +11,21 @@ class MoviesScreen extends StatelessWidget {
     // _scrollListBloc = getIt.get<ScrollListBloc>(instanceName: instanceName);
   }
 
+  MoviesScreen.withName({super.key, required String instanceName}) {
+    bloc = getIt.get<ScrollListBloc>(instanceName: instanceName)
+      ..add(const ScrollListLoadEvent());
+  }
+
+  MoviesScreen.withParams(
+      {super.key, required String instanceName, required MoviesParams params}) {
+    bloc = getIt.get<ScrollListBloc>(instanceName: instanceName)
+      ..add(ScrollListLoadWithParamsEvent(
+          path: params.path, query: params.query));
+  }
+
   static String routeName = '/list-movies';
   // final String instanceName;
-  final ScrollListBloc bloc;
+  late final ScrollListBloc bloc;
 
   String get title {
     return bloc.path;

@@ -8,10 +8,25 @@ abstract class ScrollListEvent extends Equatable {
 }
 
 class ScrollListLoadEvent extends ScrollListEvent {
-  // final MoviesResponseEntity moviesResponseEntity;
-
-  const ScrollListLoadEvent(); //{required this.moviesResponseEntity});
+  const ScrollListLoadEvent();
 
   @override
   List<Object?> get props => [];
+}
+
+class ScrollListLoadWithParamsEvent extends ScrollListEvent {
+  const ScrollListLoadWithParamsEvent({
+    required String path,
+    Map<String, String>? query,
+  })  : _query = query,
+        _path = path;
+
+  final String _path;
+  final Map<String, String>? _query;
+
+  String get path => _path;
+  Map<String, String>? get query => _query;
+
+  @override
+  List<Object?> get props => [_path, _query];
 }
