@@ -9,6 +9,7 @@ import '../core/data/data_source/remote_data_source/movies_remote_data_source/mo
 import '../core/data/data_source/remote_data_source/movies_remote_data_source/movies_remote_data_source_impl.dart';
 import '../core/data/api_client.dart';
 import '../core/presentation/blocs/scroll_list/scroll_list_bloc.dart';
+import '../core/presentation/blocs/movies_response/movies_response_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -52,6 +53,16 @@ class AppGetIt {
     //     getMoviesResponse: getIt<GetMoviesResponse>(),
     //   ),
     // );
+    // getIt.registerFactory(
+    //   () => ListMoviesBloc(
+    //     path: '/3/movie/popular',
+    //     getMoviesResponse: getIt<GetMoviesResponse>(),
+    //   ) as PopularList,
+    // );
+
+    getIt.registerFactory(
+      () => MoviesResponseBloc(getMoviesResponse: getIt<GetMoviesResponse>()),
+    );
 
     // user case
     getIt.registerLazySingleton(

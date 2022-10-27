@@ -27,42 +27,44 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<TrendingList>(
-          create: (_) => ListMoviesBloc(
-            path: '/3/trending/movie/day',
-            getMoviesResponse: GetMoviesResponse(
-              MovieRepositoryImpl(
-                movieRemoteDataSource:
-                    MovieRemoteDataSourceImpl(ApiClient(Client())),
-              ),
-            ),
-          )..add(const ListMoviesLoadEvent()),
-        ),
-        BlocProvider<PopularList>(
-          create: (_) => ListMoviesBloc(
-            path: '/3/movie/popular',
-            getMoviesResponse: GetMoviesResponse(
-              MovieRepositoryImpl(
-                movieRemoteDataSource:
-                    MovieRemoteDataSourceImpl(ApiClient(Client())),
-              ),
-            ),
-          )..add(const ListMoviesLoadEvent()),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const HomeScrollScreen(),
-        routes: {
-          // MoviesScreen.routeName: (ctx) => const MoviesScreen(),
-          PosterScreen.routeName: (ctx) => const PosterScreen(),
-        },
+    return
+        // MultiBlocProvider(
+        //   providers: [
+        //     BlocProvider<TrendingList>(
+        //       create: (_) => ListMoviesBloc(
+        //         path: '/3/trending/movie/day',
+        //         getMoviesResponse: GetMoviesResponse(
+        //           MovieRepositoryImpl(
+        //             movieRemoteDataSource:
+        //                 MovieRemoteDataSourceImpl(ApiClient(Client())),
+        //           ),
+        //         ),
+        //       )..add(const ListMoviesLoadEvent()),
+        //     ),
+        //     BlocProvider<PopularList>(
+        //       create: (_) => ListMoviesBloc(
+        //         path: '/3/movie/popular',
+        //         getMoviesResponse: GetMoviesResponse(
+        //           MovieRepositoryImpl(
+        //             movieRemoteDataSource:
+        //                 MovieRemoteDataSourceImpl(ApiClient(Client())),
+        //           ),
+        //         ),
+        //       )..add(const ListMoviesLoadEvent()),
+        //     ),
+        //   ],
+        //   child:
+        MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: const HomeScrollScreen(),
+      routes: {
+        // MoviesScreen.routeName: (ctx) => const MoviesScreen(),
+        PosterScreen.routeName: (ctx) => const PosterScreen(),
+      },
+      // ),
     );
   }
 }
