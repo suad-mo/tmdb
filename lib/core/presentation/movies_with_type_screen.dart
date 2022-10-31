@@ -40,7 +40,11 @@ class MoviesWidthTypeScreen extends StatelessWidget {
 
           if (state is MoviesResponseLoadedState) {
             final items = state.moviesResponseEntity.movies;
-            return GridMoviesWidget(items: items);
+            return GridMoviesWidget(
+              items: items,
+              refresh: () => bloc
+                  .add(MoviesResponseLoadEvent(listMoviesType: listMoviesType)),
+            );
           }
 
           return const Center(

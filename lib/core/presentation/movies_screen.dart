@@ -44,7 +44,10 @@ class MoviesScreen extends StatelessWidget {
           //print(state);
           if (state is ScrollListLoadedState) {
             final items = state.moviesResponseEntity.movies;
-            return GridMoviesWidget(items: items);
+            return GridMoviesWidget(
+              items: items,
+              refresh: () {},
+            );
           }
 
           return const Center(

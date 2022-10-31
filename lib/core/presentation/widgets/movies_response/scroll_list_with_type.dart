@@ -67,8 +67,8 @@ class _ScrollListWithTypeWidgetState extends State<ScrollListWithTypeWidget> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MoviesWidthTypeScreen.onlyType(
-                      // bloc: widget._bloc,
+                    builder: (context) => MoviesWidthTypeScreen(
+                      bloc: widget._bloc,
                       listMoviesType: widget.listMoviesType,
                       // instanceName: widget.instanceName,
                     ),

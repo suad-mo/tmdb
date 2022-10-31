@@ -13,14 +13,17 @@ class HomeScrollScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Lost movies'),
       ),
-      body: Column(
-        children: <Widget>[
-          // HorizScrollListWidget(instanceName: 'Trending'),
-          // HorizScrollListWidget(instanceName: 'Trending'),
-          // HorizScrollListWidget(instanceName: 'Popular'),
-          ScrollListWithTypeWidget(listMoviesType: ListMoviesType.trending),
-          ScrollListWithTypeWidget(listMoviesType: ListMoviesType.popular),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            // HorizScrollListWidget(instanceName: 'Trending'),
+            // HorizScrollListWidget(instanceName: 'Trending'),
+            // HorizScrollListWidget(instanceName: 'Popular'),
+            ScrollListWithTypeWidget(listMoviesType: ListMoviesType.trending),
+            ScrollListWithTypeWidget(listMoviesType: ListMoviesType.popular),
+            ScrollListWithTypeWidget(listMoviesType: ListMoviesType.nowPlaying),
+          ],
+        ),
       ),
     );
   }
