@@ -2,19 +2,20 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tmdb/core/domain/use_cases/params/movies_params.dart';
+import 'package:tmdb/core/enums/type_list_movies.dart';
 
 import '../../../domain/entities/movies_response_entity.dart';
-import '../../../domain/use_cases/get_movies_response.dart';
+import '../../../domain/use_cases/get_movies_response_with_request.dart';
 
 part 'movies_response_event.dart';
 part 'movies_response_state.dart';
 
 class MoviesResponseBloc
     extends Bloc<MoviesResponseEvent, MoviesResponseState> {
-  final GetMoviesResponse _getMoviesResponse;
-  MoviesResponseBloc({required GetMoviesResponse getMoviesResponse})
-      : _getMoviesResponse = getMoviesResponse,
+  final GetMoviesResponseWithRequest _getMoviesResponseWithRequest;
+  MoviesResponseBloc(
+      {required GetMoviesResponseWithRequest getMoviesResponseWithRequest})
+      : _getMoviesResponseWithRequest = getMoviesResponseWithRequest,
         super(MoviesResponseInitial()) {
     on<MoviesResponseLoadEvent>(_moviesResponseLoadEventHandler);
   }
@@ -24,7 +25,7 @@ class MoviesResponseBloc
     Emitter<MoviesResponseState> emit,
   ) async {
     final state = this.state;
-    final path = event.path;
+    final listMoviesType = event.listMoviesType;
     Map<String, String>? query = event.query;
 
     if (state is MoviesResponseInitial) {
@@ -32,9 +33,9 @@ class MoviesResponseBloc
 
       query = query == null ? {'page': '1'} : {...query, 'page': '1'};
 
-      final either = await _getMoviesResponse(
-        MoviesParams(
-          path: path,
+      final either = await _getMoviesResponseWithRequest(
+        MoviesRequestParams(
+          listMoviesType: listMoviesType,
           query: query,
         ),
       );
@@ -62,9 +63,9 @@ class MoviesResponseBloc
           ? {'page': '${state.moviesResponseEntity.page + 1}'}
           : {...query, 'page': '${state.moviesResponseEntity.page + 1}'};
 
-      final either = await _getMoviesResponse(
-        MoviesParams(
-          path: path,
+      final either = await _getMoviesResponseWithRequest(
+        MoviesRequestParams(
+          listMoviesType: listMoviesType,
           query: query,
         ),
       );

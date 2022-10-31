@@ -1,21 +1,24 @@
 part of 'movies_response_bloc.dart';
 
 abstract class MoviesResponseEvent extends Equatable {
-  const MoviesResponseEvent();
+  const MoviesResponseEvent({required ListMoviesType listMoviesType})
+      : _listMoviesType = listMoviesType;
+  final ListMoviesType _listMoviesType;
+
+  ListMoviesType get listMoviesType => _listMoviesType;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [listMoviesType];
 }
 
 class MoviesResponseLoadEvent extends MoviesResponseEvent {
-  final String path;
   final Map<String, String>? query;
 
   const MoviesResponseLoadEvent({
-    required this.path,
-    required this.query,
-  });
+    this.query,
+    required ListMoviesType listMoviesType,
+  }) : super(listMoviesType: listMoviesType);
 
   @override
-  List<Object?> get props => [path, query];
+  List<Object?> get props => [super.listMoviesType, query];
 }

@@ -8,6 +8,7 @@ import '../core/domain/use_cases/get_movies_response.dart';
 import '../core/data/data_source/remote_data_source/movies_remote_data_source/movies_remote_data_source.dart';
 import '../core/data/data_source/remote_data_source/movies_remote_data_source/movies_remote_data_source_impl.dart';
 import '../core/data/api_client.dart';
+import '../core/domain/use_cases/get_movies_response_with_request.dart';
 import '../core/presentation/blocs/scroll_list/scroll_list_bloc.dart';
 import '../core/presentation/blocs/movies_response/movies_response_bloc.dart';
 
@@ -61,12 +62,16 @@ class AppGetIt {
     // );
 
     getIt.registerFactory(
-      () => MoviesResponseBloc(getMoviesResponse: getIt<GetMoviesResponse>()),
+      () => MoviesResponseBloc(
+          getMoviesResponseWithRequest: getIt<GetMoviesResponseWithRequest>()),
     );
 
     // user case
     getIt.registerLazySingleton(
         () => GetMoviesResponse(getIt<MovieRepository>()));
+
+    getIt.registerLazySingleton(
+        () => GetMoviesResponseWithRequest(getIt<MovieRepository>()));
 
     // repository
     getIt.registerLazySingleton<MovieRepository>(() => MovieRepositoryImpl(
