@@ -37,6 +37,24 @@ class MoviesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => MoviesWidthTypeScreen(
+              //       bloc: widget._bloc,
+              //       listMoviesType: widget.listMoviesType,
+              //       // instanceName: widget.instanceName,
+              //     ),
+              //   ),
+              // );
+            },
+            icon: const Icon(Icons.arrow_forward),
+            color: Colors.black,
+          ),
+        ],
       ),
       body: BlocBuilder<ScrollListBloc, ScrollListState>(
         bloc: bloc,
