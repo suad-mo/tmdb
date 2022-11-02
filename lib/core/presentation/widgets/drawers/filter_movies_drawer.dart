@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dialog/filter_year_dialog.dart';
+
 class FilterMoviesDrawer extends StatefulWidget {
   const FilterMoviesDrawer({super.key});
 
@@ -12,39 +14,17 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
   bool _isAsc = false;
 
   SortBy _sortBy = SortBy.popularity;
+  FilterYear _filterYear = FilterYear.any;
 
   String get subtitle {
     return '${_sortBy.title}, ${_isAsc ? 'Ascending (A-Z)' : 'Descending (Z-A)'}';
   }
 
-  Future<void> _showSimpleDialog() async {
-    await showDialog<void>(
-        context: context,
+  Future<dynamic> _showSimpleDialog(BuildContext ctx) async {
+    return showDialog<void>(
+        context: ctx,
         builder: (BuildContext context) {
-          return SimpleDialog(
-            // <-- SEE HERE
-            title: const Text('Select Booking Type'),
-            children: <Widget>[
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('General'),
-              ),
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Silver'),
-              ),
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Gold'),
-              ),
-            ],
-          );
+          return FilterYearDialog(filterYear: _filterYear);
         });
   }
 
@@ -54,7 +34,7 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
       child: Column(
         children: <Widget>[
           AppBar(
-            title: Text(_isSort ? 'Discover' : 'Sort by'),
+            title: Text(!_isSort ? 'Discover' : 'Sort by'),
             automaticallyImplyLeading: false, //neće dodati dugme za povratak
             actions: [
               TextButton(
@@ -69,7 +49,7 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                 ),
               ),
             ],
-            leading: !_isSort
+            leading: _isSort
                 ? IconButton(
                     onPressed: () {
                       setState(() {
@@ -80,7 +60,7 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                   )
                 : null,
           ),
-          if (_isSort)
+          if (!_isSort)
             Column(
               children: [
                 ListTile(
@@ -95,9 +75,15 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                 const Divider(),
                 ListTile(
                   title: const Text('Year'),
-                  subtitle: const Text('Any'),
+                  subtitle: Text(_filterYear.title),
                   onTap: () {
-                    _showSimpleDialog();
+                    _showSimpleDialog(context).then((value) {
+                      if (value is FilterYear) {
+                        setState(() {
+                          _filterYear = value;
+                        });
+                      }
+                    });
                   },
                 ),
                 const Divider(),
@@ -109,11 +95,11 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                 const Divider(),
               ],
             ),
-          if (_isSort)
+          if (!_isSort)
             Expanded(
               child: Container(),
             ),
-          if (_isSort)
+          if (!_isSort)
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue, // background
@@ -126,7 +112,7 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
               }),
               child: const Text('Reset'),
             ),
-          if (!_isSort)
+          if (_isSort)
             Column(
               children: [
                 Row(
@@ -222,8 +208,8 @@ ButtonStyle _raisedButtonStyle(bool isAsc) => ElevatedButton.styleFrom(
       elevation: 0,
       foregroundColor: isAsc ? Colors.white : Colors.blue,
       backgroundColor: isAsc ? Colors.blue : Colors.white,
-      minimumSize: const Size(88, 36),
-      padding: const EdgeInsets.only(right: 2),
+      minimumSize: const Size(50, 36),
+      padding: const EdgeInsets.all(5),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(0)),
         side: BorderSide(width: 1, color: Colors.blue),
@@ -237,4 +223,48 @@ enum SortBy {
 
   const SortBy({required this.title});
   final String title;
+}
+
+enum FilterYear {
+  any(title: 'Any'),
+  oneYear(title: 'One year'),
+  betweenYear(title: 'Between years');
+
+  const FilterYear({required this.title});
+  final String title;
+}
+
+Future<void> _dialogBuilder(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Basic dialog title'),
+        content: const Text('A dialog is a type of modal window that\n'
+            'appears in front of app content to\n'
+            'provide critical information, or prompt\n'
+            'for a decision to be made.'),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Disable'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Enable'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
