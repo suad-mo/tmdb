@@ -16,6 +16,7 @@ class GetMoviesResponseWithRequest
   @override
   Future<Either<Failure, MoviesResponseEntity>> call(
       MoviesRequestParams params) {
+    print('bbbb ${params.listMoviesType.path} ${params.query.toString()}');
     return movieRepository.getMoviesResponse(
       path: params.listMoviesType.path,
       query: params.query,

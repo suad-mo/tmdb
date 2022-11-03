@@ -18,6 +18,7 @@ class MoviesResponseBloc
       : _getMoviesResponseWithRequest = getMoviesResponseWithRequest,
         super(MoviesResponseInitial()) {
     on<MoviesResponseLoadEvent>(_moviesResponseLoadEventHandler);
+    on<MoviesResponseReloadEvent>(_moviesResponseReloadEventHandler);
   }
 
   FutureOr<void> _moviesResponseLoadEventHandler(
@@ -88,6 +89,36 @@ class MoviesResponseBloc
           );
           emit(MoviesResponseLoadedState(
               moviesResponseEntity: newMoviesResponseEntity));
+        },
+      );
+    }
+  }
+
+  FutureOr<void> _moviesResponseReloadEventHandler(
+    MoviesResponseReloadEvent event,
+    Emitter<MoviesResponseState> emit,
+  ) async {
+    if (state is MoviesResponseLoadedState) {
+      final state = this.state;
+      final listMoviesType = event.listMoviesType;
+      Map<String, String>? query = event.query;
+
+      query = query == null ? {'page': '1'} : {...query, 'page': '1'};
+
+      final either = await _getMoviesResponseWithRequest(
+        MoviesRequestParams(
+          listMoviesType: listMoviesType,
+          query: query,
+        ),
+      );
+
+      await either.fold(
+        (failure) async {
+          emit(const MoviesResponseErrorState());
+        },
+        (moviesResponseEntity) async {
+          emit(MoviesResponseLoadedState(
+              moviesResponseEntity: moviesResponseEntity));
         },
       );
     }

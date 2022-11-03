@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 // import 'package:tmdb/data/genres.dart';
 
+import '../../../core/enums/movie_genres.dart';
+import '../../../core/presentation/movies_with_type_screen.dart';
 import '../../../models/movie.dart';
 
 class AboutTab extends StatelessWidget {
@@ -52,7 +54,16 @@ class AboutTab extends StatelessWidget {
                       backgroundColor: Colors.black12,
                     ),
                     onPressed: (() {
-                      // print(movie.genres?[index].id.toString());
+                      final id = movie.genres?[index].id;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MoviesWidthTypeScreen.withGenre(
+                            movieGenres: MovieGenres.getWithId(id!),
+                            // instanceName: widget.instanceName,
+                          ),
+                        ),
+                      );
                     }),
                     child: Text(
                       movie.genres?[index].name ?? '',

@@ -34,6 +34,12 @@ enum ListMoviesType {
     type: 'movie',
     path: '/3/movie/top_rated',
     titleSufix: 'MOVIE',
+  ),
+  discover(
+    title: 'Discover',
+    type: 'movie',
+    path: '/3/discover/movie',
+    titleSufix: 'MOVIE',
   );
 
   const ListMoviesType({

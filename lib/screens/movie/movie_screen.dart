@@ -92,7 +92,8 @@ class MovieScreen extends StatelessWidget {
                     expandedTitleScale: 1,
                     stretchModes: const [StretchMode.fadeTitle],
                     collapseMode: CollapseMode.pin,
-                    background: MovieHeader(movie.data!),
+                    background:
+                        movie.data != null ? MovieHeader(movie.data!) : null,
                   ),
                   bottom: const TabBar(
                     padding: EdgeInsets.all(0),

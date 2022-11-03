@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:tmdb/core/enums/movie_genres.dart';
+import 'package:tmdb/core/presentation/blocs/movies_response/movies_response_bloc.dart';
 
+import '../../../enums/type_list_movies.dart';
 import 'dialog/filter_year_dialog.dart';
 
 class FilterMoviesDrawer extends StatefulWidget {
-  const FilterMoviesDrawer({super.key});
+  const FilterMoviesDrawer(
+      {super.key,
+      required this.changeQuery,
+      required this.movieGenres,
+      required this.query});
+  // ignore: non_constant_identifier_names, prefer_typing_uninitialized_variables
+  final void Function(Map<String, String>) changeQuery;
+  final Map<String, String> query;
+  final MovieGenres movieGenres;
 
   @override
   State<FilterMoviesDrawer> createState() => _FilterMoviesDrawerState();
@@ -11,14 +22,23 @@ class FilterMoviesDrawer extends StatefulWidget {
 
 class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
   bool _isSort = false;
-  bool _isAsc = false;
 
   SortBy _sortBy = SortBy.popularity;
+  SortType _sortType = SortType.descending;
+
+  late MovieGenres _movieGenres;
+
+  bool get _isAsc => _sortType == SortType.ascending;
+  String get _sort => '${_sortBy.path}.${_sortType.path}';
+
   FilterYear _filterYear = FilterYear.any;
 
-  String get subtitle {
-    return '${_sortBy.title}, ${_isAsc ? 'Ascending (A-Z)' : 'Descending (Z-A)'}';
-  }
+  String get subtitle => '${_sortBy.title}, ${_sortType.title}';
+
+  Map<String, String> get query => {
+        ..._movieGenres.pathMap,
+        'sort_by': '${_sortBy.path}.${_sortType.path}',
+      };
 
   Future<dynamic> _showSimpleDialog(BuildContext ctx) async {
     return showDialog<void>(
@@ -26,6 +46,17 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
         builder: (BuildContext context) {
           return FilterYearDialog(filterYear: _filterYear);
         });
+  }
+
+  @override
+  void initState() {
+    final String idSortBy = widget.query['sort_by'].toString().split('.')[0];
+    final String idSortType = widget.query['sort_by'].toString().split('.')[1];
+    final int idGenre = num.tryParse(widget.query['with_genres']!)!.toInt();
+    _sortBy = SortBy.sortByWithPath(idSortBy);
+    _sortType = SortType.sortByWithPath(idSortType);
+    _movieGenres = MovieGenres.getWithId(idGenre);
+    super.initState();
   }
 
   @override
@@ -106,9 +137,11 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                   foregroundColor: Colors.white, // foreground
                   fixedSize: const Size.fromWidth(double.infinity)),
               onPressed: (() {
-                // setState(() {
-                //   _isAsc = !_isAsc;
-                // });
+                setState(() {
+                  _sortBy = SortBy.popularity;
+                  _sortType = SortType.descending;
+                  _filterYear = FilterYear.any;
+                });
               }),
               child: const Text('Reset'),
             ),
@@ -123,7 +156,7 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                         onPressed: (() {
                           if (!_isAsc) {
                             setState(() {
-                              _isAsc = true;
+                              _sortType = SortType.ascending;
                             });
                           }
                         }),
@@ -144,7 +177,7 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                         onPressed: (() {
                           if (_isAsc) {
                             setState(() {
-                              _isAsc = false;
+                              _sortType = SortType.descending;
                             });
                           }
                         }),
@@ -163,27 +196,36 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                 ),
                 ListTile(
                   title: const Text('Release date'),
-                  // subtitle: const Text('Release date'),
                   trailing: _sortBy == SortBy.releaseDate
                       ? const Icon(Icons.check)
                       : null,
                   onTap: () {
+                    if (_sortBy == SortBy.releaseDate) return;
                     setState(() {
                       _sortBy = SortBy.releaseDate;
                     });
+                    widget.changeQuery(query);
+                    // widget.bloc.add(MoviesResponseReloadEvent(
+                    //     listMoviesType: ListMoviesType.discover, query: query));
                   },
                 ),
+                const Divider(),
                 ListTile(
                   title: const Text('Popularity'),
                   trailing: _sortBy == SortBy.popularity
                       ? const Icon(Icons.check)
                       : null,
                   onTap: () {
+                    if (_sortBy == SortBy.popularity) return;
                     setState(() {
                       _sortBy = SortBy.popularity;
                     });
+                    widget.changeQuery(query);
+                    // widget.bloc.add(MoviesResponseReloadEvent(
+                    //     listMoviesType: ListMoviesType.discover, query: query));
                   },
                 ),
+                const Divider(),
                 ListTile(
                   title: const Text('Vote average'),
                   // subtitle: const Text('Release date'),
@@ -191,11 +233,17 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                       ? const Icon(Icons.check)
                       : null,
                   onTap: () {
+                    if (_sortBy == SortBy.voteAverage) return;
+                    // print('vote Average....');
                     setState(() {
                       _sortBy = SortBy.voteAverage;
                     });
+                    widget.changeQuery(query);
+                    // widget.bloc.add(MoviesResponseReloadEvent(
+                    //     listMoviesType: ListMoviesType.discover, query: query));
                   },
                 ),
+                const Divider(),
               ],
             )
         ],
@@ -217,12 +265,37 @@ ButtonStyle _raisedButtonStyle(bool isAsc) => ElevatedButton.styleFrom(
     );
 
 enum SortBy {
-  releaseDate(title: 'Release date'),
-  popularity(title: 'Popularity'),
-  voteAverage(title: 'Vote average');
+  releaseDate(title: 'Release date', path: 'primary_release_date'),
+  popularity(title: 'Popularity', path: 'popularity'),
+  voteAverage(title: 'Vote average', path: 'vote_average');
 
-  const SortBy({required this.title});
+  const SortBy({required this.title, required this.path});
   final String title;
+  final String path;
+
+  static SortBy sortByWithPath(String path) =>
+      SortBy.values.firstWhere((el) => el.path == path);
+}
+
+enum SortType {
+  ascending(
+    title: 'Ascending (A-Z)',
+    path: 'asc',
+  ),
+  descending(
+    title: 'Descending (Z-A)',
+    path: 'desc',
+  );
+
+  const SortType({
+    required this.title,
+    required this.path,
+  });
+  final String title;
+  final String path;
+
+  static SortType sortByWithPath(String path) =>
+      SortType.values.firstWhere((el) => el.path == path);
 }
 
 enum FilterYear {

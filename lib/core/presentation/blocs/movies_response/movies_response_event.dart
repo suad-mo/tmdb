@@ -22,3 +22,15 @@ class MoviesResponseLoadEvent extends MoviesResponseEvent {
   @override
   List<Object?> get props => [super.listMoviesType, query];
 }
+
+class MoviesResponseReloadEvent extends MoviesResponseEvent {
+  final Map<String, String>? query;
+
+  const MoviesResponseReloadEvent({
+    this.query,
+    required ListMoviesType listMoviesType,
+  }) : super(listMoviesType: listMoviesType);
+
+  @override
+  List<Object?> get props => [super.listMoviesType, query];
+}
