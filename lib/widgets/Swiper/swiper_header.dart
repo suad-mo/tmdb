@@ -77,30 +77,35 @@ class _SwiperHeaderState extends State<SwiperHeader> {
   @override
   Widget build(BuildContext context) {
     // ignore: sized_box_for_whitespace
-    return Container(
-      height: 220,
-      width: double.infinity,
-      child: Swiper(
-        itemCount: widget.urlImgs.length,
-        itemBuilder: (context, index) {
-          return CachedNetworkImage(
-            imageUrl: TMDB.urlBack + widget.urlImgs[index],
-            placeholder: (context, url) => const SizedBox(
-              height: 220,
-              child: Image(image: AssetImage('assets/images/placeholder.png')),
+    return widget.urlImgs.isNotEmpty
+        ? SizedBox(
+            height: 220,
+            width: double.infinity,
+            child: Swiper(
+              itemCount: widget.urlImgs.length,
+              itemBuilder: (context, index) {
+                return CachedNetworkImage(
+                  imageUrl: TMDB.urlBack + widget.urlImgs[index],
+                  placeholder: (context, url) => const SizedBox(
+                    height: 220,
+                    child: Image(
+                        image: AssetImage('assets/images/placeholder.png')),
+                  ),
+                  fit: BoxFit.cover,
+                );
+              },
+              pagination: _pagination(),
+              onTap: (index) {},
+              onIndexChanged: ((value) {
+                setState(() {
+                  _activeIndex = value;
+                });
+              }),
+              controller: _controler,
             ),
-            fit: BoxFit.cover,
+          )
+        : const SizedBox(
+            height: 220,
           );
-        },
-        pagination: _pagination(),
-        onTap: (index) {},
-        onIndexChanged: ((value) {
-          setState(() {
-            _activeIndex = value;
-          });
-        }),
-        controller: _controler,
-      ),
-    );
   }
 }

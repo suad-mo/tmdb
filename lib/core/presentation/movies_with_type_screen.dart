@@ -14,11 +14,13 @@ import 'widgets/movies_grid/movies_grid_widget.dart';
 //   };
 
 class MoviesWidthTypeScreen extends StatefulWidget {
-  MoviesWidthTypeScreen(
-      {super.key, required this.bloc, required this.listMoviesType});
+  const MoviesWidthTypeScreen(
+      {super.key, required this.bloc, required this.listMoviesType})
+      : _movieGenres = null;
 
   MoviesWidthTypeScreen.onlyType({super.key, required this.listMoviesType})
-      : bloc = getIt.get<MoviesResponseBloc>()
+      : _movieGenres = null,
+        bloc = getIt.get<MoviesResponseBloc>()
           ..add(MoviesResponseLoadEvent(listMoviesType: listMoviesType));
 
   MoviesWidthTypeScreen.withGenre({super.key, required MovieGenres movieGenres})
@@ -37,7 +39,7 @@ class MoviesWidthTypeScreen extends StatefulWidget {
 
   final ListMoviesType listMoviesType;
   final MoviesResponseBloc bloc;
-  MovieGenres? _movieGenres;
+  final MovieGenres? _movieGenres;
 
   @override
   State<MoviesWidthTypeScreen> createState() => _MoviesWidthTypeScreenState();
@@ -55,7 +57,7 @@ class _MoviesWidthTypeScreenState extends State<MoviesWidthTypeScreen> {
   @override
   void initState() {
     if (widget._movieGenres != null) {
-      _query = {
+      _query = <String, String>{
         ...widget._movieGenres!.pathMap,
         'sort_by': 'popularity.desc',
       };
@@ -65,7 +67,7 @@ class _MoviesWidthTypeScreenState extends State<MoviesWidthTypeScreen> {
 
   void changeQuery(Map<String, String> query) {
     setState(() {
-      _query = query;
+      _query = {...?_query, ...query};
     });
     widget.bloc.add(MoviesResponseReloadEvent(
         listMoviesType: ListMoviesType.discover, query: _query));
@@ -77,6 +79,10 @@ class _MoviesWidthTypeScreenState extends State<MoviesWidthTypeScreen> {
     return Scaffold(
       key: _key,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+
         title: Text(title),
         // automaticallyImplyLeading: true, //neće dodati dugme za povratak
         actions: <Widget>[
@@ -84,7 +90,7 @@ class _MoviesWidthTypeScreenState extends State<MoviesWidthTypeScreen> {
             IconButton(
               onPressed: () {
                 _key.currentState!.openEndDrawer(); //<-- SEE HERE
-                print('Yyyyyy...');
+                // print('Yyyyyy...');
 
                 // Navigator.push(
                 //   context,
@@ -126,6 +132,10 @@ class _MoviesWidthTypeScreenState extends State<MoviesWidthTypeScreen> {
               items: items,
               refresh: () => widget.bloc.add(MoviesResponseLoadEvent(
                   listMoviesType: widget.listMoviesType, query: _query)),
+            );
+          } else if (state is MoviesResponseErrorState) {
+            return const Center(
+              child: Text('Somthing error...'),
             );
           }
 

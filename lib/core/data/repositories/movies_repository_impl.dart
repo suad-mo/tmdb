@@ -31,7 +31,7 @@ class MovieRepositoryImpl extends MovieRepository {
       );
       return Right(movies);
     } catch (e) {
-      return Left(ServerFailure());
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -41,7 +41,7 @@ class MovieRepositoryImpl extends MovieRepository {
       final List<MovieModel> movies = await _movieRemoteDataSource.getPopular();
       return Right(movies);
     } catch (e) {
-      return Left(ServerFailure());
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -59,7 +59,7 @@ class MovieRepositoryImpl extends MovieRepository {
 
       return Right(res); // as MoviesResponseEntity);
     } catch (e) {
-      return Left(ServerFailure());
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

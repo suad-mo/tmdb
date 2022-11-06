@@ -41,7 +41,8 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
       path: path,
       query: query,
     );
-    // print('ggggg');
+    //print('ggggg');
+    //print(decodedResponse['total_results'].toString());
     return MoviesResponseModel.fromJson(decodedResponse);
   }
 }

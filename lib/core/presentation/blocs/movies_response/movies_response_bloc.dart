@@ -99,12 +99,12 @@ class MoviesResponseBloc
     Emitter<MoviesResponseState> emit,
   ) async {
     if (state is MoviesResponseLoadedState) {
-      final state = this.state;
+      // final state = this.state;
       final listMoviesType = event.listMoviesType;
       Map<String, String>? query = event.query;
 
       query = query == null ? {'page': '1'} : {...query, 'page': '1'};
-
+      //print(query);
       final either = await _getMoviesResponseWithRequest(
         MoviesRequestParams(
           listMoviesType: listMoviesType,
@@ -114,6 +114,7 @@ class MoviesResponseBloc
 
       await either.fold(
         (failure) async {
+          //print('Errror $failure');
           emit(const MoviesResponseErrorState());
         },
         (moviesResponseEntity) async {

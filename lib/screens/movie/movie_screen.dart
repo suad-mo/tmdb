@@ -26,7 +26,7 @@ class MovieScreen extends StatelessWidget {
         List<String> backdropsList = <String>[];
         if (movie.hasData) {
           final backdrops = movie.data!.images!.backdrops;
-          if (backdrops != null) {
+          if (backdrops != null && backdrops.isNotEmpty) {
             for (var i = 0;
                 i < (backdrops.length > 10 ? 10 : backdrops.length);
                 i++) {
@@ -92,8 +92,9 @@ class MovieScreen extends StatelessWidget {
                     expandedTitleScale: 1,
                     stretchModes: const [StretchMode.fadeTitle],
                     collapseMode: CollapseMode.pin,
-                    background:
-                        movie.data != null ? MovieHeader(movie.data!) : null,
+                    background: movie.data != null
+                        ? MovieHeader(movie.data!)
+                        : Container(), //null,
                   ),
                   bottom: const TabBar(
                     padding: EdgeInsets.all(0),

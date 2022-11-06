@@ -72,6 +72,7 @@ class MovieModel extends MovieEntity {
         : '${TMDB.https}/ujr5pztc1oitbe7ViMUOilFaJ7s.jpg';
     final releaseDate = json['release_date'].toString();
     final voteAverage = json['vote_average']; // ?? 0.0;
+    //print(voteAverage.toString());
     final adult = json['adult'] as bool;
     final backdropPath = TMDB.urlBack + json['backdrop_path'].toString();
     final originalTitle = json['original_title'].toString();
@@ -79,9 +80,11 @@ class MovieModel extends MovieEntity {
     final originalLanguage = json['original_language'].toString();
     final mediaType = json['media_type'].toString();
     final genreIds = List.castFrom<dynamic, int>(json['genre_ids']);
-    final popularity = (json['popularity']) as double; // ?? 0.0;
+    final popularity = (json['popularity']) as num; // ?? 0.0;
+    //print(popularity.toString());
     final video = json['video'] as bool;
-    final voteCount = (json['vote_count']) as int; // ?? 0;
+    final voteCount =
+        (json['vote_count']) == null ? 0 : (json['vote_count']) as int; // ?? 0;
     return MovieModel(
       id: id,
       title: title,
@@ -95,7 +98,7 @@ class MovieModel extends MovieEntity {
       overview: overview,
       mediaType: mediaType,
       genreIds: genreIds,
-      popularity: popularity,
+      popularity: popularity.toDouble(),
       video: video,
       voteCount: voteCount,
     );

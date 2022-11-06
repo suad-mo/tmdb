@@ -36,7 +36,7 @@ class _GridMoviesWidgetState extends State<GridMoviesWidget> {
   Future<void> _refresh() async {
     // return widget._bloc
     //     .add(MoviesResponseLoadEvent(listMoviesType: widget.listMoviesType));
-    print('OnRefresh');
+    // print('OnRefresh');
     widget.refresh();
   }
 

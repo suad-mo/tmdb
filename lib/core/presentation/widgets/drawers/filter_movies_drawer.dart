@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb/core/enums/movie_genres.dart';
-import 'package:tmdb/core/presentation/blocs/movies_response/movies_response_bloc.dart';
 
-import '../../../enums/type_list_movies.dart';
 import 'dialog/filter_year_dialog.dart';
 
 class FilterMoviesDrawer extends StatefulWidget {
@@ -29,7 +27,8 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
   late MovieGenres _movieGenres;
 
   bool get _isAsc => _sortType == SortType.ascending;
-  String get _sort => '${_sortBy.path}.${_sortType.path}';
+
+  // String get _sort => '${_sortBy.path}.${_sortType.path}';
 
   FilterYear _filterYear = FilterYear.any;
 
@@ -65,13 +64,16 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
       child: Column(
         children: <Widget>[
           AppBar(
+            elevation: 0,
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
             title: Text(!_isSort ? 'Discover' : 'Sort by'),
             automaticallyImplyLeading: false, //neće dodati dugme za povratak
             actions: [
               TextButton(
                 style: TextButton.styleFrom(
-                  foregroundColor: Colors.amber,
-                ),
+                    foregroundColor: Colors.blue[700],
+                    padding: const EdgeInsets.all(10)),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -142,6 +144,7 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                   _sortType = SortType.descending;
                   _filterYear = FilterYear.any;
                 });
+                widget.changeQuery(query);
               }),
               child: const Text('Reset'),
             ),
@@ -154,11 +157,11 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                       child: ElevatedButton(
                         style: _raisedButtonStyle(_isAsc),
                         onPressed: (() {
-                          if (!_isAsc) {
-                            setState(() {
-                              _sortType = SortType.ascending;
-                            });
-                          }
+                          if (_sortType == SortType.ascending) return;
+                          setState(() {
+                            _sortType = SortType.ascending;
+                          });
+                          widget.changeQuery(query);
                         }),
                         child: Row(
                           children: const [
@@ -175,11 +178,11 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
                       child: ElevatedButton(
                         style: _raisedButtonStyle(!_isAsc),
                         onPressed: (() {
-                          if (_isAsc) {
-                            setState(() {
-                              _sortType = SortType.descending;
-                            });
-                          }
+                          if (_sortType == SortType.descending) return;
+                          setState(() {
+                            _sortType = SortType.descending;
+                          });
+                          widget.changeQuery(query);
                         }),
                         child: Row(
                           children: const [
@@ -307,37 +310,37 @@ enum FilterYear {
   final String title;
 }
 
-Future<void> _dialogBuilder(BuildContext context) {
-  return showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Basic dialog title'),
-        content: const Text('A dialog is a type of modal window that\n'
-            'appears in front of app content to\n'
-            'provide critical information, or prompt\n'
-            'for a decision to be made.'),
-        actions: <Widget>[
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
-            ),
-            child: const Text('Disable'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
-            ),
-            child: const Text('Enable'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
+// Future<void> _dialogBuilder(BuildContext context) {
+//   return showDialog<void>(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return AlertDialog(
+//         title: const Text('Basic dialog title'),
+//         content: const Text('A dialog is a type of modal window that\n'
+//             'appears in front of app content to\n'
+//             'provide critical information, or prompt\n'
+//             'for a decision to be made.'),
+//         actions: <Widget>[
+//           TextButton(
+//             style: TextButton.styleFrom(
+//               textStyle: Theme.of(context).textTheme.labelLarge,
+//             ),
+//             child: const Text('Disable'),
+//             onPressed: () {
+//               Navigator.of(context).pop();
+//             },
+//           ),
+//           TextButton(
+//             style: TextButton.styleFrom(
+//               textStyle: Theme.of(context).textTheme.labelLarge,
+//             ),
+//             child: const Text('Enable'),
+//             onPressed: () {
+//               Navigator.of(context).pop();
+//             },
+//           ),
+//         ],
+//       );
+//     },
+//   );
+// }

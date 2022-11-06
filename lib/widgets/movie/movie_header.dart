@@ -27,7 +27,7 @@ class MovieHeader extends StatelessWidget {
   }
 
   String get posterPath {
-    return TMDB.https + movie.posterPath!;
+    return '${TMDB.https}${movie.posterPath ?? '/ugiL6wIhl1OfPyv1gqLkTe45jLl.jpg'}';
   }
 
   @override

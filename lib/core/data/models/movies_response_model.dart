@@ -34,6 +34,7 @@ class MoviesResponseModel extends MoviesResponseEntity {
     //print(json['results'][0]['id'].toString());
     final m = <MovieModel>[];
     json['results'].forEach((result) {
+      // print('---------');
       m.add(MovieModel.fromJson(result));
     });
     return MoviesResponseModel(
