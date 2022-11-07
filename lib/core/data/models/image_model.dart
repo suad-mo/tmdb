@@ -13,12 +13,14 @@ class ImageModel extends ImageEntity {
 
   factory ImageModel.fromJson(Map<String, dynamic> json) {
     return ImageModel(
-      height: json['height'] as int?,
+      height: (json['height'] as num).toInt(),
       width: json['width'] as int?,
       aspectRatio: json['aspect_ratio'] as double?,
-      iso6391: json['iso6391'] as String?,
+      iso6391: json['iso_639_1'] as String?,
       filePath: json['file_path'] as String?,
-      voteAverage: json['vote_average'] as double?,
+      voteAverage: (json['vote_average'] as num?) != null
+          ? (json['vote_average'] as num).toDouble()
+          : null,
       voteCount: json['vote_count'] as int?,
     );
   }
@@ -29,7 +31,7 @@ class ImageModel extends ImageEntity {
     data['height'] = height;
     data['width'] = width;
     data['aspect_ratio'] = aspectRatio;
-    data['iso6391'] = iso6391;
+    data['iso_639_1'] = iso6391;
     data['file_path'] = filePath;
     data['vote_average'] = voteAverage;
     data['vote_count'] = voteCount;
