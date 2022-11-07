@@ -1,18 +1,19 @@
 import 'package:tmdb/features/person/domain/entities/person_base_entity.dart';
 
-class PersonDetailEntity extends PersonBaseEntity {
-  // int? id; //
-  // String? name; //
-  // String? profilePath; //
+import '../../../../core/domain/entities/image_entity.dart';
 
+class PersonDetailEntity extends PersonBaseEntity {
   final String? knownForDepartment; //
-  //Age
+  //Age make get propertis
   final DateTime? birthday;
   final DateTime? deathday;
   final String? biography;
   final String? placeOfBirth;
   final List<String>? alsoKnownAs;
   final double? popularity; //
+  final List<ImageEntity>? imgProfiles;
+
+  int? get age => deathday != null ? 1 : 2;
 
   // MovieCredits? movieCredits;
   // Images? images;
@@ -21,12 +22,17 @@ class PersonDetailEntity extends PersonBaseEntity {
     required int id,
     required String name,
     String? profilePath,
-    this.alsoKnownAs,
+    this.knownForDepartment,
     this.biography,
     this.birthday,
     this.deathday,
-    this.knownForDepartment,
     this.placeOfBirth,
+    this.alsoKnownAs,
     this.popularity,
-  }) : super(id: id, name: name, profilePath: profilePath);
+    this.imgProfiles,
+  }) : super(
+          id: id,
+          name: name,
+          profilePath: profilePath,
+        );
 }

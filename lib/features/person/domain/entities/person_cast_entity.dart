@@ -10,7 +10,11 @@ class PersonCastEntity extends PersonBaseEntity {
     String? profilePath,
     required this.character,
     required this.order,
-  }) : super(id: id, name: name, profilePath: profilePath);
+  }) : super(
+          id: id,
+          name: name,
+          profilePath: profilePath,
+        );
 
   @override
   List<Object?> get props => [

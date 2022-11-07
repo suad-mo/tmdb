@@ -1,5 +1,23 @@
 // import 'package:equatable/equatable.dart';
 
+// Part of Tv details
+class CreatedBy {
+  int? id;
+  String? name;
+  String? profilePath;
+
+  String? creditId;
+  int? gender;
+
+  CreatedBy({
+    this.id,
+    this.creditId,
+    this.name,
+    this.gender,
+    this.profilePath,
+  });
+}
+
 class PersonDetailEntity {
   int? id; //
   String? name; //
