@@ -1,5 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
+import 'package:tmdb/features/person/data/data_sources/remote_data_source.dart/person_detail_remote_data_source.dart';
+import 'package:tmdb/features/person/data/repositories/person_detail_repository_impl.dart';
+import 'package:tmdb/features/person/domain/repositories/person_detail_repository.dart';
+import 'package:tmdb/features/person/domain/use_case/get_person_detail.dart';
+import 'package:tmdb/features/person/presentation/blocs/person_detail_bloc/person_detail_bloc.dart';
 
 import '../core/data/repositories/movies_repository_impl.dart';
 import '../core/domain/repositories/movie_repository.dart';
@@ -66,9 +71,16 @@ class AppGetIt {
           getMoviesResponseWithRequest: getIt<GetMoviesResponseWithRequest>()),
     );
 
+    getIt.registerFactory(
+      () => PersonDetailBloc(
+          getPersonDetailUseCase: getIt<GetPersonDetailUseCase>()),
+    );
     // user case
     getIt.registerLazySingleton(
         () => GetMoviesResponse(getIt<MovieRepository>()));
+
+    getIt.registerLazySingleton(() => GetPersonDetailUseCase(
+        personDetailRepository: getIt<PersonDetailRepository>()));
 
     getIt.registerLazySingleton(
         () => GetMoviesResponseWithRequest(getIt<MovieRepository>()));
@@ -77,9 +89,17 @@ class AppGetIt {
     getIt.registerLazySingleton<MovieRepository>(() => MovieRepositoryImpl(
         movieRemoteDataSource: getIt<MovieRemoteDataSource>()));
 
+    getIt.registerLazySingleton<PersonDetailRepository>(() =>
+        PersonDetailRepositoryImpl(
+            personDetailRemoteDataSource:
+                getIt<PersonDetailRemoteDataSource>()));
+
     //data source
     getIt.registerLazySingleton<MovieRemoteDataSource>(
         () => MovieRemoteDataSourceImpl(getIt<ApiClient>()));
+
+    getIt.registerLazySingleton<PersonDetailRemoteDataSource>(
+        () => PersonDetailRemoteDataSourceImpl(getIt<ApiClient>()));
 
     // external
     getIt.registerLazySingleton<ApiClient>(() => ApiClient(Client()));

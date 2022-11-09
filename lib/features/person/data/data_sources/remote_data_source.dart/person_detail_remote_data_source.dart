@@ -16,7 +16,7 @@ class PersonDetailRemoteDataSourceImpl implements PersonDetailRemoteDataSource {
 
   @override
   Future<PersonDetailModel> getPersonDetailsById(int id) async {
-    final path = '/person/$id';
+    final path = '/3/person/$id';
     final query = <String, String>{
       'append_to_response': 'images',
     };

@@ -6,11 +6,12 @@ import '../entities/person_detail_entyty.dart';
 import '../repositories/person_detail_repository.dart';
 import 'person_use_case.dart';
 
-class GetPersonDetail
+class GetPersonDetailUseCase
     implements PersonUseCase<PersonDetailEntity, PersonParams> {
   final PersonDetailRepository _personDetailRepository;
 
-  GetPersonDetail({required PersonDetailRepository personDetailRepository})
+  GetPersonDetailUseCase(
+      {required PersonDetailRepository personDetailRepository})
       : _personDetailRepository = personDetailRepository;
 
   @override

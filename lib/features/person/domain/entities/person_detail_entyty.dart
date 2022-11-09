@@ -15,8 +15,8 @@ class PersonDetailEntity extends PersonBaseEntity {
   int? get age {
     return birthday != null
         ? deathday != null
-            ? deathday!.difference(birthday!).inDays ~/ 365.6
-            : DateTime.now().difference(birthday!).inDays ~/ 365.6
+            ? deathday!.difference(birthday!).inDays ~/ 365.25
+            : DateTime.now().difference(birthday!).inDays ~/ 365.25
         : null;
     // if (deathday != null) {
     //   if (birthday != null) {

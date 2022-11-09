@@ -1,9 +1,9 @@
-import 'dart:async';
+// import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tmdb/core/enums/type_list_movies.dart';
 
+import '../../../enums/type_list_movies.dart';
 import '../../../domain/entities/movies_response_entity.dart';
 import '../../../domain/use_cases/get_movies_response_with_request.dart';
 
@@ -21,7 +21,7 @@ class MoviesResponseBloc
     on<MoviesResponseReloadEvent>(_moviesResponseReloadEventHandler);
   }
 
-  FutureOr<void> _moviesResponseLoadEventHandler(
+  Future<void> _moviesResponseLoadEventHandler(
     MoviesResponseLoadEvent event,
     Emitter<MoviesResponseState> emit,
   ) async {
@@ -94,7 +94,7 @@ class MoviesResponseBloc
     }
   }
 
-  FutureOr<void> _moviesResponseReloadEventHandler(
+  Future<void> _moviesResponseReloadEventHandler(
     MoviesResponseReloadEvent event,
     Emitter<MoviesResponseState> emit,
   ) async {
