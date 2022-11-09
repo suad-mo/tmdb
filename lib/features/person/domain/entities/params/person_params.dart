@@ -10,14 +10,3 @@ class PersonParams extends Equatable {
   @override
   List<Object> get props => [_id];
 }
-
-class Params extends Equatable {
-  final int _id;
-
-  const Params({required int id}) : _id = id;
-
-  int get id => _id;
-
-  @override
-  List<Object?> get props => [_id];
-}

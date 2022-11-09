@@ -3,17 +3,33 @@ import 'package:tmdb/features/person/domain/entities/person_base_entity.dart';
 import '../../../../core/domain/entities/image_entity.dart';
 
 class PersonDetailEntity extends PersonBaseEntity {
-  final String? knownForDepartment; //
-  //Age make get propertis
+  final String? knownForDepartment;
   final DateTime? birthday;
   final DateTime? deathday;
   final String? biography;
   final String? placeOfBirth;
   final List<String>? alsoKnownAs;
-  final double? popularity; //
+  final double? popularity;
   final List<ImageEntity>? imgProfiles;
 
-  int? get age => deathday != null ? 1 : 2;
+  int? get age {
+    return birthday != null
+        ? deathday != null
+            ? deathday!.difference(birthday!).inDays ~/ 365.6
+            : DateTime.now().difference(birthday!).inDays ~/ 365.6
+        : null;
+    // if (deathday != null) {
+    //   if (birthday != null) {
+    //     return deathday!.difference(birthday!).inDays ~/ 365.6;
+    //   }
+    //   return null;
+    // } else {
+    //   if (birthday != null) {
+    //     return DateTime.now().difference(birthday!).inDays ~/ 365.6;
+    //   }
+    //   return null;
+    // }
+  }
 
   // MovieCredits? movieCredits;
   // Images? images;
