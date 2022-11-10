@@ -29,7 +29,7 @@ class ApiClient {
       path,
       query,
     );
-    print(url.toString());
+    //print(url.toString());
     final response = await _client.get(url, headers: headers);
     //print(response.body);
     debugPrint('response: ${response.reasonPhrase} ${response.statusCode}');

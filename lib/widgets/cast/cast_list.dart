@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tmdb/features/person/domain/entities/person_base_entity.dart';
 import 'package:tmdb/features/person/presentation/person_detail_screen.dart';
 
 import 'package:tmdb/helpers/tmbd_res_data.dart';
