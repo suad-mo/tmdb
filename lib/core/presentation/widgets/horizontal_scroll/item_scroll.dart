@@ -34,6 +34,8 @@ class ItemScroll extends StatelessWidget {
                   child: Image(
                     image: NetworkImage(item.posterPath),
                     fit: BoxFit.cover,
+                    // color: Colors.transparent,
+                    isAntiAlias: true,
                     loadingBuilder: (context, child, loadingProgress) =>
                         loadingProgress == null
                             ? child
@@ -65,7 +67,7 @@ class ItemScroll extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.normal,
                   ),
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,

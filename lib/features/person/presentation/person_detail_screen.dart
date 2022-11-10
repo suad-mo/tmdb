@@ -40,12 +40,16 @@ class PersonDetailScreen extends StatelessWidget {
         builder: (context, state) {
           PersonDetailEntity? person;
           if (state is PersonDetailLoadingState) {
-            return const Center(
-              child: Text('Loading....'),
+            return const Scaffold(
+              body: Center(
+                child: Text('Loading....'),
+              ),
             );
           } else if (state is PersonDetailErrorState) {
-            return const Center(
-              child: Text('Error....'),
+            return const Scaffold(
+              body: Center(
+                child: Text('Error....'),
+              ),
             );
           } else if (state is PersonDetailLoadedState) {
             person = state.personDetailEntity;
@@ -57,6 +61,7 @@ class PersonDetailScreen extends StatelessWidget {
                 slivers: <Widget>[
                   SliverAppBar(
                     title: Text(name),
+                    // snap: true,
                     foregroundColor: Colors.black,
                     backgroundColor: Colors.white,
                     expandedHeight: 350,
@@ -69,41 +74,18 @@ class PersonDetailScreen extends StatelessWidget {
                           ? PersonDetailHeaderWidget(person: person)
                           : null,
                       centerTitle: true,
-                      // title: Text(
-                      //   name,
-                      //   style: const TextStyle(color: Colors.black),
-                      // ),
-                      // expandedTitleScale: 1,
-                      // titlePadding: const EdgeInsets.only(bottom: 35, top: 0),
                       stretchModes: const [
                         StretchMode.fadeTitle,
-                        // StretchMode.blurBackground
                       ],
                       collapseMode: CollapseMode.pin,
                     ),
                     floating: false,
-                    // leading: Container(
-                    //   margin: const EdgeInsets.all(6),
-                    //   child: Ink(
-                    //     decoration: const ShapeDecoration(
-                    //       color: Colors.black26,
-                    //       shape: CircleBorder(),
-                    //     ),
-                    //     child: IconButton(
-                    //       icon: const Icon(
-                    //         Icons.arrow_back,
-                    //         color: Colors.white,
-                    //       ),
-                    //       iconSize: 24,
-                    //       onPressed: (() {
-                    //         Navigator.of(context).pop();
-                    //       }),
-                    //     ),
-                    //   ),
-                    // ),
                     bottom: const TabBar(
-                      labelColor: Colors.blue,
-                      indicatorColor: Colors.blue,
+                      // indicator: ,
+                      labelColor: Colors.transparent,
+                      indicatorColor: Colors.lightBlue,
+                      labelStyle: TextStyle(
+                          decorationColor: Color.fromARGB(255, 11, 223, 57)),
                       padding: EdgeInsets.all(0),
                       tabs: [
                         Tab(
@@ -133,7 +115,7 @@ class PersonDetailScreen extends StatelessWidget {
                       delegate: SliverChildListDelegate(<Widget>[
                     Container(
                       padding: const EdgeInsets.all(0),
-                      height: 1850,
+                      height: 1000,
                       child: TabBarView(
                         children: [
                           person != null

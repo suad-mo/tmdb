@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:tmdb/features/person/presentation/widgets/scroll/scroll_images_widget.dart';
 
 import '../../../domain/entities/person_detail_entyty.dart';
 
@@ -17,6 +19,8 @@ class _AboutTabWidgetState extends State<AboutTabWidget> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      padding: const EdgeInsets.all(0),
       controller: _controller,
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -47,7 +51,42 @@ class _AboutTabWidgetState extends State<AboutTabWidget> {
                 ),
                 const SizedBox(width: 15),
                 Text(
-                  widget.person.birthday.toString(),
+                  widget.person.birthday != null
+                      ? DateFormat.yMMMMd().format(widget.person.birthday!)
+                      : '',
+                  style: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+            if (widget.person.deathday != null) const SizedBox(height: 10),
+            if (widget.person.deathday != null)
+              Row(
+                children: [
+                  const Text(
+                    'Died on',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(width: 15),
+                  Text(
+                    widget.person.deathday != null
+                        ? DateFormat.yMMMMd().format(widget.person.deathday!)
+                        : '',
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                const Text(
+                  'From',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(width: 15),
+                Text(
+                  widget.person.placeOfBirth ?? 'Place of Birth',
                   style: const TextStyle(
                       fontSize: 14, fontWeight: FontWeight.w500),
                 ),
@@ -62,13 +101,22 @@ class _AboutTabWidgetState extends State<AboutTabWidget> {
             const SizedBox(height: 10),
             // less
             //     ?
-            Text(
-              widget.person.biography ?? 'Biography',
-              textAlign: TextAlign.left,
-              maxLines: less ? 3 : null,
-              overflow: less ? TextOverflow.ellipsis : null,
-              softWrap: less ? false : null,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  less = !less;
+                  _controller.initialScrollOffset; //= true;
+                });
+              },
+              child: Text(
+                widget.person.biography ?? 'Biography',
+                textAlign: TextAlign.left,
+                maxLines: less ? 3 : null,
+                overflow: less ? TextOverflow.ellipsis : null,
+                softWrap: less ? false : null,
+                style:
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+              ),
             ),
             // : Text(
             //     widget.person.biography ?? 'Biography',
@@ -91,7 +139,6 @@ class _AboutTabWidgetState extends State<AboutTabWidget> {
               textAlign: TextAlign.start,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
-
             SizedBox(
               width: double.infinity,
               height: 40,
@@ -105,22 +152,10 @@ class _AboutTabWidgetState extends State<AboutTabWidget> {
                       style: OutlinedButton.styleFrom(
                         backgroundColor: Colors.black12,
                       ),
-                      onPressed: (() {
-                        //   final id = movie.genres?[index].id;
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => MoviesWidthTypeScreen.withGenre(
-                        //         movieGenres: MovieGenres.getWithId(id!),
-                        //         // instanceName: widget.instanceName,
-                        //       ),
-                        //     ),
-                        //   );
-                      }),
+                      onPressed: () {},
                       child: Text(
                         widget.person.alsoKnownAs?[index] ?? '',
                         style: const TextStyle(
-                          // background: Paint()..color,
                           color: Colors.black87,
                           fontWeight: FontWeight.bold,
                         ),
@@ -130,6 +165,11 @@ class _AboutTabWidgetState extends State<AboutTabWidget> {
                 }),
               ),
             ),
+
+            if (widget.person.imgProfiles != null)
+              SizedBox(
+                  height: 300,
+                  child: ScrollImagesWidget(images: widget.person.imgProfiles!))
           ],
         ),
       ),

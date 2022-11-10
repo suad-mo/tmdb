@@ -43,8 +43,10 @@ class HomeScrollScreen extends StatelessWidget {
             // HorizScrollListWidget(instanceName: 'Popular'),
             ScrollListWithTypeWidget(
                 listMoviesType: ListMoviesType.trendingWeek),
-            ScrollListWithTypeWidget(listMoviesType: ListMoviesType.popular),
             ScrollListWithTypeWidget(listMoviesType: ListMoviesType.nowPlaying),
+            ScrollListWithTypeWidget(listMoviesType: ListMoviesType.upcoming),
+            ScrollListWithTypeWidget(listMoviesType: ListMoviesType.popular),
+            ScrollListWithTypeWidget(listMoviesType: ListMoviesType.topRated),
           ],
         ),
       ),

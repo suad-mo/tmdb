@@ -101,7 +101,7 @@ class MovieScreen extends StatelessWidget {
                     tabs: [
                       Tab(
                         child: Text(
-                          'ABOUT',
+                          'About',
                           style: TextStyle(
                             color: Colors.blue,
                           ),
@@ -109,15 +109,16 @@ class MovieScreen extends StatelessWidget {
                       ),
                       Tab(
                         child: Text(
-                          'CAST',
+                          'Cast',
                           style: TextStyle(color: Colors.blue),
                         ),
                       ),
                       Tab(
-                          icon: Icon(
-                        Icons.directions_car,
-                        color: Colors.amber,
-                      )),
+                        child: Text(
+                          'Comments',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -130,7 +131,9 @@ class MovieScreen extends StatelessWidget {
                       child: TabBarView(children: [
                         AboutTab(movie.data!),
                         CastList(id),
-                        CastList(id),
+                        Container(
+                          color: Colors.greenAccent,
+                        ),
                       ]),
                     ),
                   ]),

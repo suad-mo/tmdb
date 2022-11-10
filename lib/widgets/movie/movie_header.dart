@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../configuration.dart';
 import '../../models/movie.dart';
@@ -9,6 +10,11 @@ import '../../widgets/swiper/swiper_header.dart';
 class MovieHeader extends StatelessWidget {
   const MovieHeader(this.movie, {super.key});
   final Movie movie;
+
+  String? get date {
+    final DateFormat x = DateFormat.yMMM();
+    return x.format(DateTime.parse(movie.releaseDate!));
+  }
 
   List<String> get backdrops {
     List<String> backdropsList = <String>[];
@@ -60,12 +66,19 @@ class MovieHeader extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: const TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 20,
                                 ),
                               ),
                             ),
-                            Text(
-                                '${movie.releaseDate} . ${movie.runtime.toString()} mins'),
+                            Row(
+                              children: [
+                                // Text('$date . ${movie.runtime.toString()} mins'),
+                                Text(date ?? ''),
+                                const Text(' - '),
+                                // const Icon(Icons.abc_sharp, size: 14),
+                                Text('${movie.runtime.toString()} mins'),
+                              ],
+                            ),
                           ],
                         )
                       ],
@@ -134,8 +147,8 @@ class MovieHeader extends StatelessWidget {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: const Text(
-                          'Rate this movie',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          'Rate movie',
+                          style: TextStyle(fontWeight: FontWeight.normal),
                         ),
                       )
                     ],

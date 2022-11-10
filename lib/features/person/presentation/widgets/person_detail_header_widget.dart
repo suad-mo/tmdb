@@ -15,7 +15,7 @@ class PersonDetailHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black12,
+      color: Colors.transparent,
       width: double.infinity,
       child: Column(children: <Widget>[
         Stack(
@@ -23,7 +23,7 @@ class PersonDetailHeaderWidget extends StatelessWidget {
             Column(
               children: [
                 const SizedBox(
-                  height: 150,
+                  height: 100,
                 ),
                 CircleAvatar(
                   radius: 60,

@@ -118,45 +118,49 @@ class AboutTab extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(5),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Align(
-                    heightFactor:
-                        (movie.productionCountries?.length ?? 1).toDouble(),
-                    alignment: Alignment.topLeft,
-                    // color: Colors.amberAccent,
-                    child: const Text(
-                      'Production Countries',
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: movie.productionCountries!
-                        .map(
-                          (e) => Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                e.name ?? 'Original Language',
-                                textAlign: TextAlign.start,
-                              ),
-                              const Icon(
-                                  IconData(10, matchTextDirection: true)),
-                            ],
-                          ),
-                        )
-                        .toList(),
-                  ),
-                )
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(5),
+          //   child: Row(
+          //     children: [
+          //       Expanded(
+          //         child: Align(
+          //           heightFactor:
+          //               (movie.productionCountries?.length ?? 1).toDouble(),
+          //           alignment: Alignment.topLeft,
+          //           // color: Colors.amberAccent,
+          //           child: const Text(
+          //             'Production Countries',
+          //             textAlign: TextAlign.left,
+          //           ),
+          //         ),
+          //       ),
+          //       Expanded(
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: movie.productionCountries!
+          //               .map(
+          //                 (e) => Row(
+          //                   mainAxisSize: MainAxisSize.min,
+          //                   mainAxisAlignment: MainAxisAlignment.start,
+          //                   children: [
+          //                     Text(
+          //                       e.name ?? 'Production Countries',
+          //                       textAlign: TextAlign.start,
+          //                       overflow: TextOverflow.ellipsis,
+          //                       softWrap: true,
+          //                       maxLines: 1,
+          //                     ),
+          //                     // const Icon(
+          //                     //     IconData(10, matchTextDirection: true)),
+          //                   ],
+          //                 ),
+          //               )
+          //               .toList(),
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.all(5),
             child: Row(
