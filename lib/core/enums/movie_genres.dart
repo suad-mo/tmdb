@@ -17,14 +17,18 @@ enum MovieGenres {
   tvMovie(id: 10770, name: "TV Movie"),
   thriller(id: 53, name: "Thriller"),
   war(id: 10752, name: "War"),
-  western(id: 37, name: "Western");
+  western(id: 37, name: "Western"),
+  xyz(id: -1, name: 'Null Movie Genres');
 
   const MovieGenres({required this.id, required this.name});
   final int id;
   final String name;
 
-  static MovieGenres getWithId(int id) =>
-      MovieGenres.values.firstWhere((el) => el.id == id);
+  static MovieGenres getWithId(int id) => MovieGenres.values.firstWhere(
+        (el) => el.id == id,
+        orElse: () => MovieGenres.xyz,
+      );
 
-  Map<String, String> get pathMap => <String, String>{'with_genres': '$id'};
+  Map<String, String> get pathMap =>
+      id < 0 ? <String, String>{'with_genres': '$id'} : {};
 }
