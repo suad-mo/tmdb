@@ -1,12 +1,25 @@
-import 'package:tmdb/core/data/api_client.dart';
-import 'package:tmdb/core/error/exceptions/decode_exseption.dart';
-import 'package:tmdb/features/person/data/models/person_detail_model.dart';
+import '../../../../../core/data/api_client.dart';
+import '../../../../../core/error/exceptions/decode_exseption.dart';
+import '../../../../movie/domen/entities/movie_cast_entity.dart';
+import '../../../domain/entities/person_movie_credits_entity.dart';
+import '../../models/person_detail_model.dart';
+import '../../models/person_movie_credits_model.dart';
 
 abstract class PersonDetailRemoteDataSource {
   /// Calls the https://api.themoviedb.org/3/person/{id} endpoint.
   ///
   /// Throws a [ServerException] for all error codes.
   Future<PersonDetailModel> getPersonDetailsById(int id);
+
+  /// Calls the https://api.themoviedb.org/3/person/{id}/movie_credits endpoint.
+  ///
+  /// Throws a [ServerException] for all error codes.
+  Future<PersonMovieCreditsEntity> getPersonMovieCreditsEntityById(int id);
+
+  /// Calls the https://api.themoviedb.org/3/person/{id}/movie_credits endpoint.
+  ///
+  /// Throws a [ServerException] for all error codes.
+  Future<List<MovieCastEntity>> getListMovieCastEntityById(int id);
 }
 
 class PersonDetailRemoteDataSourceImpl implements PersonDetailRemoteDataSource {
@@ -23,6 +36,29 @@ class PersonDetailRemoteDataSourceImpl implements PersonDetailRemoteDataSource {
     try {
       final decodedResponse = await _apiClient.get(path: path, query: query);
       return PersonDetailModel.fromJson(decodedResponse);
+    } catch (e) {
+      throw DecodeExeption();
+    }
+  }
+
+  @override
+  Future<PersonMovieCreditsEntity> getPersonMovieCreditsEntityById(
+      int id) async {
+    final path = '/3/person/$id/movie_credits';
+    try {
+      final decodeResponse = await _apiClient.get(path: path);
+      return PersonMovieCreditsModel.fromJsonOnly(decodeResponse);
+    } catch (e) {
+      throw DecodeExeption();
+    }
+  }
+
+  @override
+  Future<List<MovieCastEntity>> getListMovieCastEntityById(int id) async {
+    final path = '/3/person/$id/movie_credits';
+    try {
+      final decodeResponse = await _apiClient.get(path: path);
+      return PersonMovieCreditsModel.fromJsonOnly(decodeResponse).cast!;
     } catch (e) {
       throw DecodeExeption();
     }

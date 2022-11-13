@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'widgets/tabs/movies_tab/movies_tab_widget.dart';
 import 'widgets/person_detail_header_widget.dart';
 import 'widgets/tabs/about_tab_widget.dart';
 // import 'package:tmdb/screens/movie/tabs/about_tab.dart';
@@ -82,11 +84,13 @@ class PersonDetailScreen extends StatelessWidget {
                     floating: false,
                     bottom: const TabBar(
                       // indicator: ,
+
                       labelColor: Colors.transparent,
                       indicatorColor: Colors.lightBlue,
                       labelStyle: TextStyle(
                           decorationColor: Color.fromARGB(255, 11, 223, 57)),
                       padding: EdgeInsets.all(0),
+
                       tabs: [
                         Tab(
                           child: Text(
@@ -115,7 +119,7 @@ class PersonDetailScreen extends StatelessWidget {
                       delegate: SliverChildListDelegate(<Widget>[
                     Container(
                       padding: const EdgeInsets.all(0),
-                      height: 1000,
+                      height: 1800,
                       child: TabBarView(
                         children: [
                           person != null
@@ -123,9 +127,10 @@ class PersonDetailScreen extends StatelessWidget {
                                   person: person,
                                 )
                               : Container(),
-                          Container(
-                            color: Colors.amber,
-                          ),
+                          Padding(
+                              // color: Colors.amber,
+                              padding: const EdgeInsets.all(10),
+                              child: MovieTabWidget(id: id)),
                           Container(
                             color: Colors.green,
                           )

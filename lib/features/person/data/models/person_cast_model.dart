@@ -10,19 +10,19 @@ class PersonCastModel extends PersonCastEntity {
   final bool? adult;
 
   const PersonCastModel({
-    required this.gender,
-    required this.originalName,
-    required this.knownForDepartment,
-    required this.popularity,
-    required this.creditId,
-    required this.castId,
-    required this.adult,
+    this.gender,
+    this.originalName,
+    this.knownForDepartment,
+    this.popularity,
+    this.creditId,
+    this.castId,
+    this.adult,
     required super.id,
     required super.name,
-    String? profilePath,
+    super.profilePath,
     required super.character,
     required super.order,
-  }) : super(profilePath: profilePath);
+  });
 
   factory PersonCastModel.fromJson(Map<String, dynamic> json) {
     return PersonCastModel(

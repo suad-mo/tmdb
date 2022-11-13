@@ -5,16 +5,12 @@ class PersonCastEntity extends PersonBaseEntity {
   final String character;
 
   const PersonCastEntity({
-    required int id,
-    required String name,
-    String? profilePath,
     required this.character,
     required this.order,
-  }) : super(
-          id: id,
-          name: name,
-          profilePath: profilePath,
-        );
+    required super.id,
+    required super.name,
+    super.profilePath,
+  });
 
   @override
   List<Object?> get props => [

@@ -1,9 +1,8 @@
-// import 'dart:async';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tmdb/features/person/domain/entities/params/person_params.dart';
-import 'package:tmdb/features/person/domain/use_case/get_person_detail.dart';
+
+import '../../../domain/entities/params/person_params.dart';
+import '../../../domain/use_case/get_person_detail.dart';
 
 import '../../../domain/entities/person_detail_entyty.dart';
 

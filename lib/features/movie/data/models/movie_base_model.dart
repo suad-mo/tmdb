@@ -36,23 +36,26 @@ class MovieBaseModel extends MovieBaseEntity {
         );
 
   factory MovieBaseModel.fromJson(Map<String, dynamic> json) => MovieBaseModel(
-        id: num.parse(json["id"] ?? '-1').toInt(),
+        id: num.parse(json["id"].toString()).toInt(),
         title: json["title"] ?? 'title',
         posterPath: json["poster_path"],
         backdropPath: json["backdrop_path"],
         adult: json["adult"],
         genreIds: json["genre_ids"] == null
             ? null
-            : List<int>.from(
-                json["genre_ids"].map((x) => num.tryParse(x ?? '-1') as int)),
+            : List<int>.from(json["genre_ids"]
+                .map((x) => num.tryParse(x.toString()) as int)),
         originalLanguage: json["original_language"],
         originalTitle: json["original_title"],
         overview: json["overview"],
-        popularity: num.tryParse(json["popularity"] ?? 'null') as double?,
-        releaseDate: DateTime.tryParse(json["release_date"] ?? 'null'),
+        popularity: num.tryParse(json["popularity"].toString()) as double?,
+        releaseDate: json["release_date"] == null ||
+                json["release_date"].toString().isEmpty
+            ? null
+            : DateTime.tryParse(json["release_date"].toString()),
         video: json["video"] as bool?,
-        voteAverage: num.tryParse(json["vote_average"] ?? 'null') as double?,
-        voteCount: num.tryParse(json["vote_count"] ?? 'null') as int,
+        voteAverage: num.tryParse(json["vote_average"].toString()) as double?,
+        voteCount: num.tryParse(json["vote_count"].toString()) as int,
       );
 
   Map<String, dynamic> toJson() => {

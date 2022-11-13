@@ -19,4 +19,18 @@ class MovieCrewEntity extends MovieBaseEntity {
           releaseDate: baseEntity.releaseDate,
           genres: baseEntity.genres,
         );
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        posterPath,
+        backdropPath,
+        voteAverage,
+        releaseDate,
+        genres,
+        creditId,
+        department,
+        job,
+      ];
 }
