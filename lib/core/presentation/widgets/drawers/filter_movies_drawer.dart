@@ -51,10 +51,14 @@ class _FilterMoviesDrawerState extends State<FilterMoviesDrawer> {
   void initState() {
     final String idSortBy = widget.query['sort_by'].toString().split('.')[0];
     final String idSortType = widget.query['sort_by'].toString().split('.')[1];
-    final int idGenre = num.tryParse(widget.query['with_genres']!)!.toInt();
+    // final int idGenre = widget.query['with_genres'] != null
+    //     ? widget.query['with_genres'] as int
+    //     : 0;
+    // final int idGenre = num.tryParse(widget.query['with_genres']!)!.toInt();
     _sortBy = SortBy.sortByWithPath(idSortBy);
     _sortType = SortType.sortByWithPath(idSortType);
-    _movieGenres = MovieGenres.getWithId(idGenre);
+    _movieGenres = widget.movieGenres;
+    // MovieGenres.getWithId(idGenre);
     super.initState();
   }
 

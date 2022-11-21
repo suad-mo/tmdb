@@ -13,7 +13,10 @@ class MovieHeader extends StatelessWidget {
 
   String? get date {
     final DateFormat x = DateFormat.yMMM();
-    return x.format(DateTime.parse(movie.releaseDate!));
+    if (movie.releaseDate != null && movie.releaseDate!.isNotEmpty) {
+      return x.format(DateTime.parse(movie.releaseDate!));
+    }
+    return null;
   }
 
   List<String> get backdrops {

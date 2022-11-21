@@ -119,7 +119,8 @@ class PersonDetailScreen extends StatelessWidget {
                       delegate: SliverChildListDelegate(<Widget>[
                     Container(
                       padding: const EdgeInsets.all(0),
-                      height: 1800,
+                      height: MediaQuery.of(context).size.height,
+                      width: double.infinity,
                       child: TabBarView(
                         children: [
                           person != null

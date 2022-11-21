@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/configuration.dart';
@@ -24,66 +25,76 @@ class MovieTabWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is PersonMovieCastLoadedState) {
           final movieCast = state.movieCast;
-          return Column(
-            children: [
-              Row(
-                children: <Widget>[
-                  Text(
-                    '${movieCast.length}  movies',
-                    style: TextStyle(color: Colors.blue[700]),
-                  ),
-                  const Expanded(
-                    child: SizedBox(),
-                  ),
-                  TextButton.icon(
-                    onPressed: (() {}),
-                    icon: const Icon(Icons.menu),
-                    label: const Text('View'),
-                  ),
-                  TextButton.icon(
-                    onPressed: (() {}),
-                    icon: const Icon(Icons.sort),
-                    label: const Text('Sort'),
-                  ),
-                ],
-              ),
-              GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 0.67,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 5),
-                itemCount: movieCast.length,
-                physics: const ScrollPhysics(),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(0),
-                scrollDirection: Axis.vertical,
-                itemBuilder: ((context, index) => ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              maintainState: false,
-                              builder: (context) {
-                                return MovieScreen(movieCast[index].id.toInt());
-                              },
-                            ),
-                          );
-                        },
-                        child: GridTile(
-                          child: movieCast[index].posterPath != null
-                              ? Image(
-                                  image: NetworkImage(
-                                      '${TMDB.https}${movieCast[index].posterPath!}'),
-                                )
-                              : Center(child: Text(movieCast[index].title)),
+          return SingleChildScrollView(
+            // dragStartBehavior: DragStartBehavior.down,
+            // controller: ScrollController(),
+            primary: false,
+            physics: const ScrollPhysics(),
+            // physics: const BouncingScrollPhysics(
+            //     parent: AlwaysScrollableScrollPhysics()),
+            // width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                Row(
+                  children: <Widget>[
+                    Text(
+                      '${movieCast.length}  movies',
+                      style: TextStyle(color: Colors.blue[700]),
+                    ),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                    TextButton.icon(
+                      onPressed: (() {}),
+                      icon: const Icon(Icons.menu),
+                      label: const Text('View'),
+                    ),
+                    TextButton.icon(
+                      onPressed: (() {}),
+                      icon: const Icon(Icons.sort),
+                      label: const Text('Sort'),
+                    ),
+                  ],
+                ),
+                GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 0.67,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 5),
+                  itemCount: movieCast.length,
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(0),
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: ((context, index) => ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                maintainState: false,
+                                builder: (context) {
+                                  return MovieScreen(
+                                      movieCast[index].id.toInt());
+                                },
+                              ),
+                            );
+                          },
+                          child: GridTile(
+                            child: movieCast[index].posterPath != null
+                                ? Image(
+                                    image: NetworkImage(
+                                        '${TMDB.https}${movieCast[index].posterPath!}'),
+                                  )
+                                : Center(child: Text(movieCast[index].title)),
+                          ),
                         ),
-                      ),
-                    )),
-              ),
-            ],
+                      )),
+                ),
+              ],
+            ),
           );
           //  Column(children: <Widget>[
           // Row(

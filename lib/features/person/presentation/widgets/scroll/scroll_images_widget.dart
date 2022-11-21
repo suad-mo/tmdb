@@ -14,34 +14,50 @@ class ScrollImagesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AppBar(
-          titleSpacing: 0,
-          // brightness: Brightness.light,
-          // toolbarHeight: 40,
-          elevation: 0,
-          title: const Text(
-            'Images',
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.black,
-            ),
-          ),
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          actions: [
-            IconButton(
-              onPressed: () {
-                final arg = images
-                    .map((e) => '${TMDB.urlOriginal}${e.filePath!}')
-                    .toList();
+        // AppBar(
+        //   titleSpacing: 0,
+        //   toolbarHeight: 0,
+        //   excludeHeaderSemantics: true,
+        //   elevation: 0,
+        //   title: const Text(
+        //     'Images',
+        //     style: TextStyle(
+        //       fontSize: 20,
+        //       color: Colors.black,
+        //     ),
+        //   ),
+        //   backgroundColor: Colors.white,
+        //   automaticallyImplyLeading: false,
+        //   actions: [
+        //     IconButton(
+        //       onPressed: () {
+        //         final arg = images
+        //             .map((e) => '${TMDB.urlOriginal}${e.filePath!}')
+        //             .toList();
 
-                Navigator.of(context)
-                    .pushNamed(PosterScreen.routeName, arguments: arg);
-              },
-              icon: const Icon(Icons.arrow_forward),
-              color: Colors.black,
-            ),
-          ],
+        //         Navigator.of(context)
+        //             .pushNamed(PosterScreen.routeName, arguments: arg);
+        //       },
+        //       icon: const Icon(Icons.arrow_forward),
+        //       color: Colors.black,
+        //     ),
+        //   ],
+        // ),
+        ListTile(
+          title: const Text('Images'),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+          trailing: IconButton(
+            onPressed: () {
+              final arg = images
+                  .map((e) => '${TMDB.urlOriginal}${e.filePath!}')
+                  .toList();
+
+              Navigator.of(context)
+                  .pushNamed(PosterScreen.routeName, arguments: arg);
+            },
+            icon: const Icon(Icons.arrow_forward),
+            color: Colors.black,
+          ),
         ),
         Container(
           width: double.infinity,
@@ -87,6 +103,22 @@ class ScrollImagesWidget extends StatelessWidget {
                 );
               })),
         ),
+        // ListTile(
+        //   title: const Text('Images'),
+        //   contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+        //   trailing: IconButton(
+        //     onPressed: () {
+        //       final arg = images
+        //           .map((e) => '${TMDB.urlOriginal}${e.filePath!}')
+        //           .toList();
+
+        //       Navigator.of(context)
+        //           .pushNamed(PosterScreen.routeName, arguments: arg);
+        //     },
+        //     icon: const Icon(Icons.arrow_forward),
+        //     color: Colors.black,
+        //   ),
+        // ),
       ],
     );
   }
