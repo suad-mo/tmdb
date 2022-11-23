@@ -27,8 +27,8 @@ class _AboutTabWidgetState extends State<AboutTabWidget> {
         Padding(
       padding: const EdgeInsets.all(10),
       child: SingleChildScrollView(
-        primary: true,
-        physics: const ScrollPhysics(),
+        // primary: true,
+        // physics: const ScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

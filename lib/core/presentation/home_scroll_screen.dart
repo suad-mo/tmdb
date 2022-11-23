@@ -18,22 +18,22 @@ class HomeScrollScreen extends StatelessWidget {
           'TMBD Movies',
           style: TextStyle(fontSize: 24),
         ),
-        // actions: [
-        // IconButton(
-        //   onPressed: () {
-        //     // Navigator.push(
-        //     //   context,
-        //     //   MaterialPageRoute(
-        //     //     builder: (context) => MoviesWidthTypeScreen.withGenre(
-        //     //       movieGenres: MovieGenres.action,
-        //     //       // instanceName: widget.instanceName,
-        //     //     ),
-        //     //   ),
-        //     // );
-        //   },
-        //   icon: const Icon(Icons.add),
-        // ),
-        // ],
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => MoviesWidthTypeScreen.withGenre(
+              //       movieGenres: MovieGenres.action,
+              //       // instanceName: widget.instanceName,
+              //     ),
+              //   ),
+              // );
+            },
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
