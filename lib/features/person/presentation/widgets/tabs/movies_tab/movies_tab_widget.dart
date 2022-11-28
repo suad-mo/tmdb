@@ -25,13 +25,6 @@ class MovieTabWidget extends StatelessWidget {
         if (state is PersonMovieCastLoadedState) {
           final movieCast = state.movieCast;
           return SingleChildScrollView(
-            // dragStartBehavior: DragStartBehavior.down,
-            // controller: ScrollController(),
-            primary: false,
-            physics: const ScrollPhysics(),
-            // physics: const BouncingScrollPhysics(
-            //     parent: AlwaysScrollableScrollPhysics()),
-            // width: MediaQuery.of(context).size.width,
             child: Column(
               children: [
                 Row(
@@ -95,7 +88,25 @@ class MovieTabWidget extends StatelessWidget {
               ],
             ),
           );
-          //  Column(children: <Widget>[
+        } else {
+          return const Center(
+            child: Text('Loading or Reeor...'),
+          );
+        }
+      },
+    );
+  }
+}
+
+// dragStartBehavior: DragStartBehavior.down,
+            // controller: ScrollController(),
+            // primary: false,
+            // physics: const ScrollPhysics(),
+            // physics: const BouncingScrollPhysics(
+            //     parent: AlwaysScrollableScrollPhysics()),
+            // width: MediaQuery.of(context).size.width, 
+
+//  Column(children: <Widget>[
           // Row(
           //   children: <Widget>[
           //     Text('${movieCast.length}  movies'),
@@ -143,12 +154,3 @@ class MovieTabWidget extends StatelessWidget {
           //         )),
           //   ),
           // ]);
-        } else {
-          return const Center(
-            child: Text('Loading or Reeor...'),
-          );
-        }
-      },
-    );
-  }
-}

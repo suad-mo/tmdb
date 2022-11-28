@@ -69,8 +69,9 @@ class PersonDetailScreen extends StatelessWidget {
                     expandedHeight: 350,
                     stretch: true,
                     pinned: true,
-                    actionsIconTheme: const IconThemeData(
-                        shadows: [Shadow(color: Colors.green)]),
+                    actionsIconTheme: const IconThemeData(shadows: [
+                      Shadow(color: Colors.green),
+                    ]),
                     flexibleSpace: FlexibleSpaceBar(
                       background: person != null
                           ? PersonDetailHeaderWidget(person: person)
@@ -83,14 +84,11 @@ class PersonDetailScreen extends StatelessWidget {
                     ),
                     floating: false,
                     bottom: const TabBar(
-                      // indicator: ,
-
                       labelColor: Colors.transparent,
                       indicatorColor: Colors.lightBlue,
                       labelStyle: TextStyle(
                           decorationColor: Color.fromARGB(255, 11, 223, 57)),
                       padding: EdgeInsets.all(0),
-
                       tabs: [
                         Tab(
                           child: Text(
@@ -116,31 +114,40 @@ class PersonDetailScreen extends StatelessWidget {
                     ),
                   ),
                   SliverList(
-                      delegate: SliverChildListDelegate(<Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(0),
-                      height: MediaQuery.of(context).size.height,
-                      width: double.infinity,
-                      child: TabBarView(
-                        children: [
-                          person != null
-                              ? AboutTabWidget(
-                                  person: person,
-                                )
-                              : Container(),
-                          Padding(
-                              // color: Colors.amber,
-                              padding: const EdgeInsets.all(10),
-                              child: MovieTabWidget(id: id)),
-                          Container(
-                            color: Colors.green,
-                          )
-                        ],
-                      ),
-                    )
-                  ]))
+                    delegate: SliverChildListDelegate(
+                      <Widget>[
+                        Container(
+                          padding: const EdgeInsets.all(0),
+                          height: MediaQuery.of(context).size.height,
+                          width: double.infinity,
+                          child: TabBarView(
+                            children: [
+                              person != null
+                                  ? AboutTabWidget(
+                                      person: person,
+                                    )
+                                  : Container(),
+                              Padding(
+                                  // color: Colors.amber,
+                                  padding: const EdgeInsets.all(10),
+                                  child: MovieTabWidget(id: id)),
+                              Container(
+                                color: Colors.green,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
+            ),
+          );
+        });
+  }
+}
+
 
               // appBar: AppBar(
               //   backgroundColor: Colors.white,
@@ -192,8 +199,3 @@ class PersonDetailScreen extends StatelessWidget {
               //   child: Text('No name state...'),
               // );
               // },
-            ),
-          );
-        });
-  }
-}

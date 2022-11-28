@@ -11,7 +11,6 @@ class PersonDetailHeaderWidget extends StatelessWidget {
     return '${TMDB.https}${person.profilePath ?? '/ugiL6wIhl1OfPyv1gqLkTe45jLl.jpg'}';
   }
 
-  // final String name;
   @override
   Widget build(BuildContext context) {
     return Container(
