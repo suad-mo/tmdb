@@ -54,5 +54,6 @@ class MovieCastModel extends MovieCastEntity {
             ? null
             : "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}",
         "vote_average": voteAverage,
+        "popularity": popularity,
       };
 }

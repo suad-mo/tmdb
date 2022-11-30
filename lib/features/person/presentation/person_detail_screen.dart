@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tmdb/features/person/presentation/widgets/tabs/tv_tab/tvs_tab_widget.dart';
 
 import 'widgets/tabs/movies_tab/movies_tab_widget.dart';
 import 'widgets/person_detail_header_widget.dart';
@@ -131,8 +132,10 @@ class PersonDetailScreen extends StatelessWidget {
                                   // color: Colors.amber,
                                   padding: const EdgeInsets.all(10),
                                   child: MovieTabWidget(id: id)),
-                              Container(
-                                color: Colors.green,
+                              Padding(
+                                // color: Colors.green,
+                                padding: const EdgeInsets.all(10),
+                                child: TvsTabWidget(id: id),
                               )
                             ],
                           ),

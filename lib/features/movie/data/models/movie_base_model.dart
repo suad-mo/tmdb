@@ -1,5 +1,4 @@
-import 'package:tmdb/core/enums/movie_genres.dart';
-
+import '../../../../core/enums/movie_genres.dart';
 import '../../domen/entities/movie_base_entity.dart';
 
 class MovieBaseModel extends MovieBaseEntity {

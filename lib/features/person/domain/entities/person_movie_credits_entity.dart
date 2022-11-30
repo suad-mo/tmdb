@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:tmdb/features/movie/domen/entities/movie_cast_entity.dart';
-import 'package:tmdb/features/movie/domen/entities/movie_crew_entity.dart';
+import '../../../movie/domen/entities/movie_cast_entity.dart';
+import '../../../movie/domen/entities/movie_crew_entity.dart';
 
 class PersonMovieCreditsEntity extends Equatable {
   final List<MovieCastEntity>? cast;

@@ -1,9 +1,11 @@
 import '../../../../../core/data/api_client.dart';
 import '../../../../../core/error/exceptions/decode_exseption.dart';
 import '../../../../movie/domen/entities/movie_cast_entity.dart';
+import '../../../../tv/domen/entities/tv_cast_entity.dart';
 import '../../../domain/entities/person_movie_credits_entity.dart';
 import '../../models/person_detail_model.dart';
 import '../../models/person_movie_credits_model.dart';
+import '../../models/person_tv_credits_model.dart';
 
 abstract class PersonDetailRemoteDataSource {
   /// Calls the https://api.themoviedb.org/3/person/{id} endpoint.
@@ -20,6 +22,11 @@ abstract class PersonDetailRemoteDataSource {
   ///
   /// Throws a [ServerException] for all error codes.
   Future<List<MovieCastEntity>> getListMovieCastEntityById(int id);
+
+  /// Calls the https://api.themoviedb.org/3/person/{id}/tv_credits endpoint.
+  ///
+  /// Throws a [ServerException] for all error codes.
+  Future<List<TvCastEntity>> getListTvCastEntityById(int id);
 }
 
 class PersonDetailRemoteDataSourceImpl implements PersonDetailRemoteDataSource {
@@ -59,6 +66,17 @@ class PersonDetailRemoteDataSourceImpl implements PersonDetailRemoteDataSource {
     try {
       final decodeResponse = await _apiClient.get(path: path);
       return PersonMovieCreditsModel.fromJsonOnly(decodeResponse).cast!;
+    } catch (e) {
+      throw DecodeExeption();
+    }
+  }
+
+  @override
+  Future<List<TvCastEntity>> getListTvCastEntityById(int id) async {
+    final path = '/3/person/$id/tv_credits';
+    try {
+      final decodeResponse = await _apiClient.get(path: path);
+      return PersonTvCreditsModel.fromJsonOnly(decodeResponse).cast!;
     } catch (e) {
       throw DecodeExeption();
     }

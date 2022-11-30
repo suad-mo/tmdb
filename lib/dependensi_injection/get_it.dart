@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
+import 'package:tmdb/features/person/domain/use_case/get_person_tv_cast.dart';
 import 'package:tmdb/features/person/presentation/blocs/person_movie_cast/person_movie_cast_bloc.dart';
+import 'package:tmdb/features/person/presentation/blocs/person_tv_cast/person_tv_cast_bloc.dart';
 
 import '../features/person/data/data_sources/remote_data_source.dart/person_detail_remote_data_source.dart';
 import '../features/person/data/repositories/person_detail_repository_impl.dart';
@@ -73,6 +75,9 @@ class AppGetIt {
     getIt.registerFactory(() => PersonMovieCastBloc(
         getPersonMovieCastsUseCase: getIt<GetPersonMovieCastsUseCase>()));
 
+    getIt.registerFactory(() => PersonTvCastBloc(
+        getPersonTvCastsUseCase: getIt<GetPersonTvCastsUseCase>()));
+
     // user case
     getIt.registerLazySingleton(
         () => GetMoviesResponse(getIt<MovieRepository>()));
@@ -85,6 +90,9 @@ class AppGetIt {
 
     getIt.registerLazySingleton(
         () => GetPersonMovieCastsUseCase(getIt<PersonDetailRepository>()));
+
+    getIt.registerLazySingleton(
+        () => GetPersonTvCastsUseCase(getIt<PersonDetailRepository>()));
 
     // repository
     getIt.registerLazySingleton<MovieRepository>(() => MovieRepositoryImpl(

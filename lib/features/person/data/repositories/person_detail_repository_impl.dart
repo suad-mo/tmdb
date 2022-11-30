@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:tmdb/features/tv/domen/entities/tv_cast_entity.dart';
 import '../../../../core/error/failures/server_failure.dart';
 import '../../../../core/error/failures/failure.dart';
 import '../../../movie/domen/entities/movie_cast_entity.dart';
@@ -41,6 +42,18 @@ class PersonDetailRepositoryImpl implements PersonDetailRepository {
       final listMovieCast =
           await personDetailRemoteDataSource.getListMovieCastEntityById(id);
       return Right(listMovieCast);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TvCastEntity>>> getListTvCastEntity(
+      int id) async {
+    try {
+      final listTvCast =
+          await personDetailRemoteDataSource.getListTvCastEntityById(id);
+      return Right(listTvCast);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

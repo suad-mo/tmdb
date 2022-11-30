@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:tmdb/features/person/domain/entities/params/person_params.dart';
-import 'package:tmdb/features/person/domain/use_case/get_person_movie_cast.dart';
 
+import '../../../domain/entities/params/person_params.dart';
+import '../../../domain/use_case/get_person_movie_cast.dart';
 import '../../../../movie/domen/entities/movie_cast_entity.dart';
 
 part 'person_movie_cast_event.dart';
